@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cutoro · Cut the silence</title>
+<meta name="description" content="Cutoro cuts the silence out of your talking videos, adds subtitles, and gets you posting faster. For iPhone.">
+<meta name="theme-color" content="#C83A2A">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bowlby+One&family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #F4E7CF; --surface: #FFF4DF; --line: #CDB48C; --ink: #2B1D14;
+    --soft: #4A382B; --muted: #6E5A48; --red: #C83A2A; --cream: #FFF4DF;
+    --mustard: #F2B33D; --teal: #2E6B6E;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background-color: var(--paper);
+    background-image: radial-gradient(rgba(43, 29, 20, 0.07) 1px, transparent 1.3px);
+    background-size: 14px 14px;
+    color: var(--ink);
+    font-family: "Bricolage Grotesque", system-ui, sans-serif;
+    font-size: 17px;
+    line-height: 1.55;
+  }
+  a { color: var(--red); text-decoration-thickness: 2px; text-underline-offset: 3px; }
+  a:focus-visible { outline: 3px solid var(--mustard); outline-offset: 2px; border-radius: 4px; }
+  .wrap { max-width: 780px; margin: 0 auto; padding: 28px 16px 56px; }
+
+  .poster {
+    position: relative; overflow: hidden;
+    border: 3px solid var(--ink); border-radius: 22px; box-shadow: 7px 7px 0 var(--ink);
+    background: repeating-conic-gradient(from 0deg at 50% 118%, #C83A2A 0deg 4deg, #B83223 4deg 8deg);
+    color: var(--cream);
+    padding: 26px 26px 0; min-height: 360px;
+  }
+  .poster::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 3px; background: var(--ink); }
+  .ink-tag {
+    display: inline-block; font-family: "DM Mono", monospace; font-size: 12px; letter-spacing: 0.14em;
+    text-transform: uppercase; background: var(--ink); color: var(--cream); padding: 4px 10px; border-radius: 4px;
+  }
+  h1 {
+    margin: 14px 0 0; font-family: "Bowlby One", sans-serif; font-weight: 400;
+    font-size: clamp(54px, 14vw, 96px); line-height: 0.9; text-shadow: 4px 4px 0 var(--ink);
+  }
+  .tagline {
+    position: relative; z-index: 2; max-width: 50%; margin: 16px 0 22px;
+    font-weight: 600; font-size: 19px; line-height: 1.4;
+  }
+  .tagline b { color: var(--mustard); font-weight: 700; }
+  .badge {
+    position: relative; z-index: 2; display: inline-flex; align-items: center; gap: 10px;
+    margin-bottom: 30px; padding: 10px 18px;
+    background: var(--mustard); color: var(--ink);
+    border: 3px solid var(--ink); border-radius: 14px; box-shadow: 4px 4px 0 var(--ink);
+    font-family: "Bowlby One", sans-serif; font-size: 17px; letter-spacing: 0.02em;
+    text-transform: uppercase; text-decoration: none;
+  }
+  .badge small { font-family: "DM Mono", monospace; font-size: 11px; letter-spacing: 0.12em; display: block; }
+  .snip { position: absolute; right: -6px; bottom: -4px; width: min(320px, 50%); height: auto; z-index: 1; }
+
+  .strip {
+    display: flex; justify-content: space-between; gap: 10px; margin-top: 22px; padding: 6px 12px;
+    background: var(--red); color: var(--cream); border: 2px solid var(--ink);
+    font-family: "DM Mono", monospace; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase;
+    white-space: nowrap; overflow: hidden;
+  }
+
+  .features { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; margin-top: 26px; }
+  .card {
+    background: var(--surface); border: 3px solid var(--ink); border-radius: 18px;
+    box-shadow: 5px 5px 0 var(--ink); padding: 20px;
+  }
+  .card .num {
+    display: inline-block; font-family: "DM Mono", monospace; font-size: 12px; color: var(--cream);
+    background: var(--red); border: 2px solid var(--ink); border-radius: 6px; padding: 1px 7px;
+  }
+  .card h2 {
+    margin: 10px 0 6px; font-family: "Bowlby One", sans-serif; font-weight: 400;
+    font-size: 22px; line-height: 1.1; text-transform: uppercase;
+  }
+  .card p { margin: 0; color: var(--soft); }
+  .card.teal { background: var(--teal); color: var(--cream); }
+  .card.teal p { color: var(--cream); }
+  .card.mustard { background: var(--mustard); }
+
+  .links {
+    display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px;
+  }
+  .links a {
+    font-family: "DM Mono", monospace; font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--ink); text-decoration: none; background: var(--surface);
+    border: 2px solid var(--ink); border-radius: 10px; box-shadow: 3px 3px 0 var(--ink); padding: 9px 14px;
+  }
+  .links a:hover { background: var(--mustard); }
+
+  footer {
+    margin-top: 34px; text-align: center; font-family: "DM Mono", monospace; font-size: 12px;
+    letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted);
+  }
+
+  @media (max-width: 600px) {
+    body { font-size: 16px; }
+    .poster { padding: 20px 18px 0; min-height: 0; }
+    .tagline { max-width: none; }
+    .badge { margin-bottom: 170px; }
+    .snip { width: 250px; }
+    .features { grid-template-columns: minmax(0, 1fr); }
+    .strip .hide-sm { display: none; }
+  }
+</style>
+</head>
+<body>
+<main class="wrap">
+  <header class="poster">
+    <span class="ink-tag">For iPhone · Talking videos</span>
+    <h1>Cutoro</h1>
+    <p class="tagline">Drop in a clip. Cutoro <b>cuts the silence</b>, adds subtitles, and gets you posting faster.</p>
+    <span class="badge"><span>Coming soon<small>to the App Store</small></span></span>
+    <svg class="snip" viewBox="-14 -4 330 168" role="img" aria-label="Snip, Cutoro's dachshund mascot">
+      <defs>
+        <filter id="sticker" x="-15%" y="-25%" width="130%" height="150%">
+          <feMorphology in="SourceAlpha" operator="dilate" radius="7" result="grown"/>
+          <feFlood flood-color="#FFF8EC"/>
+          <feComposite in2="grown" operator="in" result="edge"/>
+          <feMerge><feMergeNode in="edge"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+      </defs>
+      <g filter="url(#sticker)" stroke="#B5302A" stroke-width="5" stroke-linejoin="round" stroke-linecap="round">
+        <path d="M100 100 L100 136 Q100 144 108 144 L120 144 Q126 144 124 136 L122 100 Z" fill="#FFFFFF"/>
+        <path d="M126 100 L126 136 Q126 144 134 144 L146 144 Q152 144 150 136 L148 100 Z" fill="#FFFFFF"/>
+        <path d="M206 100 L206 136 Q206 144 214 144 L226 144 Q232 144 230 136 L228 100 Z" fill="#FFFFFF"/>
+        <path d="M232 100 L232 136 Q232 144 240 144 L252 144 Q258 144 256 136 L254 100 Z" fill="#FFFFFF"/>
+        <path d="M256 66 Q280 56 288 32 Q296 40 292 54 Q284 72 262 80 Z" fill="#FFFFFF"/>
+        <path d="M84 70 Q84 50 112 50 L232 50 Q262 50 262 80 Q262 110 234 112 L110 112 Q84 110 84 90 Z" fill="#FFFFFF"/>
+        <path d="M188 51 Q208 46 224 52 Q216 64 196 62 Q188 58 188 51 Z" fill="#B5302A"/>
+        <path d="M100 60 Q104 22 72 18 Q48 16 42 32 Q24 36 14 48 Q8 62 24 68 Q42 72 60 76 Q96 82 100 60 Z" fill="#FFFFFF"/>
+        <ellipse cx="14" cy="48" rx="7" ry="6" fill="#B5302A"/>
+        <path d="M78 28 Q102 24 104 52 Q106 76 88 80 Q78 62 78 28 Z" fill="#B5302A"/>
+        <path d="M92 74 Q100 90 112 100 L122 94 Q110 82 104 68 Z" fill="#F2B33D"/>
+        <circle cx="116" cy="104" r="6" fill="#FFFFFF"/>
+        <ellipse cx="62" cy="40" rx="5.5" ry="7" fill="#B5302A" stroke="none"/>
+        <circle cx="64" cy="37.5" r="1.8" fill="#FFFFFF" stroke="none"/>
+        <path d="M26 66 Q36 72 46 66" fill="none"/>
+        <path d="M34 70 Q36 82 42 80 Q46 76 42 69" fill="#F27E7E" stroke-width="3.5"/>
+        <path d="M296 22 Q304 28 302 38 M300 50 Q308 52 310 60" fill="none" stroke-width="3.5"/>
+      </g>
+    </svg>
+  </header>
+
+  <div class="strip" aria-hidden="true">
+    <span>★ Cut the silence</span>
+    <span class="hide-sm">Snip does the boring part</span>
+    <span>Keep the energy ★</span>
+  </div>
+
+  <section class="features" aria-label="What Cutoro does">
+    <article class="card">
+      <span class="num">01</span>
+      <h2>Auto cuts</h2>
+      <p>Pauses and dead air come out on their own, at the pace you like, with smooth audio across every cut.</p>
+    </article>
+    <article class="card teal">
+      <span class="num">02</span>
+      <h2>Subtitles</h2>
+      <p>Accurate captions written for you, timed to every cut, and easy to fix by hand.</p>
+    </article>
+    <article class="card mustard">
+      <span class="num">03</span>
+      <h2>Templates</h2>
+      <p>Build a format once, or copy the edit of a video you love, and reuse it every time.</p>
+    </article>
+    <article class="card">
+      <span class="num">04</span>
+      <h2>Post daily</h2>
+      <p>Send straight to TikTok, Reels and Shorts, and keep your posting streak alive with Snip.</p>
+    </article>
+  </section>
+
+  <nav class="links" aria-label="More">
+    <a href="privacypolicy.html">Privacy policy</a>
+    <a href="mailto:matthewseto2004@gmail.com">Support &amp; contact</a>
+  </nav>
+
+  <footer>© 2026 Cutoro · Made by Jacob Seto</footer>
+</main>
+</body>
+</html>
