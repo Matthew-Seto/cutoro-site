@@ -1,0 +1,574 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Privacy Policy · Cutoro</title>
+<meta name="description" content="How Cutoro handles your videos, your data and anonymous usage stats.">
+<meta name="theme-color" content="#C83A2A">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bowlby+One&family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #F4E7CF;
+    --surface: #FFF4DF;
+    --surface2: #EAD7B3;
+    --line: #CDB48C;
+    --ink: #2B1D14;
+    --soft: #4A382B;
+    --muted: #6E5A48;
+    --red: #C83A2A;
+    --cream: #FFF4DF;
+    --tint: #F7D9C6;
+    --mustard: #F2B33D;
+    --teal: #2E6B6E;
+    --border: 3px;
+    --shadow: 5px;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background-color: var(--paper);
+    background-image: radial-gradient(rgba(43, 29, 20, 0.07) 1px, transparent 1.3px);
+    background-size: 14px 14px;
+    color: var(--ink);
+    font-family: "Bricolage Grotesque", system-ui, sans-serif;
+    font-optical-sizing: auto;
+    font-size: 17px;
+    line-height: 1.6;
+  }
+  a { color: var(--red); text-decoration-thickness: 2px; text-underline-offset: 3px; }
+  a:hover { color: var(--ink); }
+  a:focus-visible { outline: 3px solid var(--mustard); outline-offset: 2px; border-radius: 4px; }
+  .wrap { max-width: 780px; margin: 0 auto; padding: 28px 16px 64px; }
+
+  /* Poster header */
+  .poster {
+    position: relative;
+    overflow: hidden;
+    border: var(--border) solid var(--ink);
+    border-radius: 22px;
+    box-shadow: 7px 7px 0 var(--ink);
+    background:
+      repeating-conic-gradient(from 0deg at 50% 118%, #C83A2A 0deg 4deg, #B83223 4deg 8deg);
+    color: var(--cream);
+    padding: 26px 26px 0;
+    min-height: 290px;
+  }
+  .poster::after {
+    content: "";
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    height: 3px;
+    background: var(--ink);
+  }
+  .ink-tag {
+    display: inline-block;
+    font-family: "DM Mono", monospace;
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    background: var(--ink);
+    color: var(--cream);
+    padding: 4px 10px;
+    border-radius: 4px;
+  }
+  .poster h1 {
+    margin: 14px 0 0;
+    font-family: "Bowlby One", sans-serif;
+    font-weight: 400;
+    font-size: clamp(46px, 11vw, 78px);
+    line-height: 0.92;
+    letter-spacing: 0.005em;
+    text-shadow: 4px 4px 0 var(--ink);
+  }
+  .poster h1 span { display: block; color: var(--mustard); }
+  .poster .snip {
+    position: absolute;
+    right: -6px;
+    bottom: -4px;
+    width: min(300px, 52%);
+    height: auto;
+    z-index: 1;
+  }
+  .poster .lede {
+    position: relative;
+    z-index: 2;
+    max-width: 52%;
+    margin: 18px 0 26px;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 1.45;
+  }
+
+  /* Ticket strip */
+  .strip {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    margin-top: 22px;
+    padding: 6px 12px;
+    background: var(--red);
+    color: var(--cream);
+    border: 2px solid var(--ink);
+    font-family: "DM Mono", monospace;
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+  .strip .no { border: 1.5px solid var(--cream); padding: 0 6px; }
+
+  /* Cards */
+  .card {
+    position: relative;
+    background: var(--surface);
+    border: var(--border) solid var(--ink);
+    border-radius: 18px;
+    box-shadow: var(--shadow) var(--shadow) 0 var(--ink);
+    padding: 22px 22px 8px;
+    margin-top: 26px;
+  }
+  .card p { margin: 0 0 14px; }
+  .summary { font-size: 19px; font-weight: 600; line-height: 1.5; padding-right: 120px; }
+  .stamp {
+    position: absolute;
+    top: 18px;
+    right: 16px;
+    transform: rotate(-8deg);
+    font-family: "DM Mono", monospace;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 1.25;
+    letter-spacing: 0.12em;
+    text-align: center;
+    text-transform: uppercase;
+    color: var(--red);
+    border: 2.5px solid var(--red);
+    border-radius: 8px;
+    padding: 6px 9px;
+    background: transparent;
+  }
+
+  /* Contents */
+  .contents { padding-bottom: 14px; }
+  .contents h2 { margin-top: 0; }
+  .contents ol {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px 14px;
+  }
+  .contents a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--ink);
+    text-decoration: none;
+    font-weight: 600;
+    padding: 8px 10px;
+    border: 2px solid var(--ink);
+    border-radius: 10px;
+    background: var(--paper);
+  }
+  .contents a:hover { background: var(--mustard); }
+  .contents .num {
+    font-family: "DM Mono", monospace;
+    font-size: 12px;
+    color: var(--red);
+    border-right: 2px dashed var(--ink);
+    padding-right: 10px;
+  }
+
+  /* Sections */
+  section { scroll-margin-top: 20px; }
+  h2 {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    margin: 4px 0 14px;
+    font-family: "Bowlby One", sans-serif;
+    font-weight: 400;
+    font-size: clamp(22px, 5.4vw, 28px);
+    line-height: 1.1;
+    text-transform: uppercase;
+  }
+  h2 .num {
+    flex: none;
+    font-family: "DM Mono", monospace;
+    font-size: 13px;
+    color: var(--cream);
+    background: var(--red);
+    border: 2px solid var(--ink);
+    border-radius: 6px;
+    padding: 2px 7px;
+    transform: translateY(-3px);
+  }
+  h3 {
+    margin: 20px 0 8px;
+    font-family: "DM Mono", monospace;
+    font-weight: 500;
+    font-size: 13px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--teal);
+  }
+  strong { font-weight: 700; }
+  .lead-in { font-weight: 700; }
+
+  ul.stars { list-style: none; margin: 0 0 16px; padding: 0; }
+  ul.stars li { position: relative; padding-left: 28px; margin-bottom: 8px; }
+  ul.stars li::before {
+    content: "★";
+    position: absolute;
+    left: 2px;
+    top: 0;
+    color: var(--red);
+    text-shadow: 1px 1px 0 var(--ink);
+  }
+
+  /* Ticket tables */
+  .ticket {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 4px 0 18px;
+    border: 2.5px solid var(--ink);
+    border-radius: 12px;
+    overflow: hidden;
+    background: var(--cream);
+    font-size: 15px;
+    line-height: 1.45;
+  }
+  .ticket th {
+    background: var(--ink);
+    color: var(--cream);
+    font-family: "DM Mono", monospace;
+    font-weight: 500;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    text-align: left;
+    padding: 9px 12px;
+  }
+  .ticket td {
+    padding: 10px 12px;
+    border-top: 2px dashed var(--line);
+    vertical-align: top;
+  }
+  .ticket tr:first-child td { border-top: none; }
+  .ticket td:first-child { font-weight: 700; }
+  .where {
+    display: inline-block;
+    font-family: "DM Mono", monospace;
+    font-size: 11.5px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--teal);
+    background: rgba(46, 107, 110, 0.1);
+    border: 1.5px solid var(--teal);
+    border-radius: 5px;
+    padding: 1px 6px;
+    line-height: 1.5;
+  }
+  .where.share { color: var(--red); border-color: var(--red); background: var(--tint); }
+
+  .never {
+    background: var(--teal);
+    color: var(--cream);
+    border: 2.5px solid var(--ink);
+    border-radius: 12px;
+    padding: 12px 14px;
+    margin: 0 0 16px;
+  }
+  .never a { color: var(--mustard); }
+
+  .switch {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    font-family: "DM Mono", monospace;
+    font-size: 13px;
+    background: var(--paper);
+    border: 2px solid var(--ink);
+    border-radius: 999px;
+    padding: 1px 10px 1px 4px;
+    white-space: nowrap;
+  }
+  .switch::before {
+    content: "";
+    width: 26px;
+    height: 15px;
+    border-radius: 999px;
+    background: var(--red) radial-gradient(circle at 18px 7.5px, var(--cream) 5px, transparent 5.5px);
+    border: 1.5px solid var(--ink);
+  }
+
+  /* Contact */
+  .contact {
+    background: var(--mustard);
+    text-align: left;
+    padding-bottom: 20px;
+  }
+  .contact .email {
+    display: inline-block;
+    margin-top: 4px;
+    font-family: "DM Mono", monospace;
+    font-weight: 500;
+    font-size: clamp(14px, 4vw, 18px);
+    color: var(--cream);
+    background: var(--red);
+    border: 2.5px solid var(--ink);
+    border-radius: 12px;
+    box-shadow: 4px 4px 0 var(--ink);
+    padding: 10px 16px;
+    text-decoration: none;
+    word-break: break-all;
+  }
+  .contact .email:hover { transform: translate(2px, 2px); box-shadow: 2px 2px 0 var(--ink); color: var(--cream); }
+
+  footer {
+    margin-top: 34px;
+    text-align: center;
+    font-family: "DM Mono", monospace;
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  footer .mark {
+    font-family: "Bowlby One", sans-serif;
+    font-size: 22px;
+    letter-spacing: 0.02em;
+    color: var(--red);
+    text-shadow: 2px 2px 0 var(--ink);
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  @media (max-width: 600px) {
+    body { font-size: 16px; }
+    .poster { padding: 20px 18px 0; min-height: 0; }
+    .poster .lede { max-width: none; margin-bottom: 150px; }
+    .poster .snip { width: 230px; }
+    .summary { padding-right: 0; padding-top: 44px; font-size: 17px; }
+    .stamp { top: 14px; right: auto; left: 18px; transform: rotate(-4deg); }
+    .contents ol { grid-template-columns: minmax(0, 1fr); }
+    .card { padding: 18px 16px 6px; }
+    .strip .hide-sm { display: none; }
+    /* Tables become stacked tickets */
+    .ticket, .ticket tbody, .ticket tr, .ticket td { display: block; width: 100%; }
+    .ticket thead { display: none; }
+    .ticket tr { border-top: 2px dashed var(--line); padding: 10px 12px; }
+    .ticket tr:first-child { border-top: none; }
+    .ticket td { border: none; padding: 2px 0; }
+    .ticket td[data-label]::before {
+      content: attr(data-label);
+      display: block;
+      font-family: "DM Mono", monospace;
+      font-size: 10.5px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-top: 6px;
+    }
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .contact .email { transition: transform 0.08s ease-out, box-shadow 0.08s ease-out; }
+  }
+  @media print {
+    body { background: #fff; }
+    .poster, .card { box-shadow: none; }
+    .contents { display: none; }
+  }
+</style>
+</head>
+<body>
+<main class="wrap">
+
+  <header class="poster">
+    <span class="ink-tag">Admit one · The fine print</span>
+    <h1>Cutoro<span>Privacy</span></h1>
+    <p class="lede">Your videos stay on your iPhone. Here's everything Cutoro handles, and the little it sends.</p>
+    <svg class="snip" viewBox="-14 -4 330 168" role="img" aria-label="Snip, Cutoro's dachshund, standing and wagging his tail">
+      <defs>
+        <filter id="sticker" x="-15%" y="-25%" width="130%" height="150%">
+          <feMorphology in="SourceAlpha" operator="dilate" radius="7" result="grown"/>
+          <feFlood flood-color="#FFF8EC"/>
+          <feComposite in2="grown" operator="in" result="edge"/>
+          <feMerge><feMergeNode in="edge"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+      </defs>
+      <g filter="url(#sticker)" stroke="#B5302A" stroke-width="5" stroke-linejoin="round" stroke-linecap="round">
+        <path d="M100 100 L100 136 Q100 144 108 144 L120 144 Q126 144 124 136 L122 100 Z" fill="#FFFFFF"/>
+        <path d="M126 100 L126 136 Q126 144 134 144 L146 144 Q152 144 150 136 L148 100 Z" fill="#FFFFFF"/>
+        <path d="M206 100 L206 136 Q206 144 214 144 L226 144 Q232 144 230 136 L228 100 Z" fill="#FFFFFF"/>
+        <path d="M232 100 L232 136 Q232 144 240 144 L252 144 Q258 144 256 136 L254 100 Z" fill="#FFFFFF"/>
+        <path d="M256 66 Q280 56 288 32 Q296 40 292 54 Q284 72 262 80 Z" fill="#FFFFFF"/>
+        <path d="M84 70 Q84 50 112 50 L232 50 Q262 50 262 80 Q262 110 234 112 L110 112 Q84 110 84 90 Z" fill="#FFFFFF"/>
+        <path d="M188 51 Q208 46 224 52 Q216 64 196 62 Q188 58 188 51 Z" fill="#B5302A"/>
+        <path d="M100 60 Q104 22 72 18 Q48 16 42 32 Q24 36 14 48 Q8 62 24 68 Q42 72 60 76 Q96 82 100 60 Z" fill="#FFFFFF"/>
+        <ellipse cx="14" cy="48" rx="7" ry="6" fill="#B5302A"/>
+        <path d="M78 28 Q102 24 104 52 Q106 76 88 80 Q78 62 78 28 Z" fill="#B5302A"/>
+        <path d="M92 74 Q100 90 112 100 L122 94 Q110 82 104 68 Z" fill="#F2B33D"/>
+        <circle cx="116" cy="104" r="6" fill="#FFFFFF"/>
+        <ellipse cx="62" cy="40" rx="5.5" ry="7" fill="#B5302A" stroke="none"/>
+        <circle cx="64" cy="37.5" r="1.8" fill="#FFFFFF" stroke="none"/>
+        <path d="M26 66 Q36 72 46 66" fill="none"/>
+        <path d="M34 70 Q36 82 42 80 Q46 76 42 69" fill="#F27E7E" stroke-width="3.5"/>
+        <path d="M296 22 Q304 28 302 38 M300 50 Q308 52 310 60" fill="none" stroke-width="3.5"/>
+      </g>
+    </svg>
+  </header>
+
+  <div class="strip" aria-hidden="true">
+    <span>★ Privacy policy</span>
+    <span class="no">Updated Oct 17, 2026</span>
+    <span class="hide-sm">Cut the silence ★</span>
+  </div>
+
+  <div class="card">
+    <span class="stamp">Stays on<br>your phone</span>
+    <p class="summary">Cutoro keeps your videos on your iPhone. We don't run accounts or ad trackers, and we never see, upload or sell your videos or voice. To improve the app, Cutoro sends anonymous usage stats to PostHog, and you can turn that off anytime in Settings.</p>
+    <p>This policy explains what the Cutoro app for iPhone ("Cutoro", "we", "us") handles, why, and the choices you have. Cutoro is made by Jacob Seto. By using Cutoro you agree to this policy.</p>
+  </div>
+
+  <nav class="card contents" aria-label="Contents">
+    <h2>Contents</h2>
+    <ol>
+      <li><a href="#information"><span class="num">01</span>Information Cutoro handles</a></li>
+      <li><a href="#analytics"><span class="num">02</span>Usage analytics (PostHog)</a></li>
+      <li><a href="#permissions"><span class="num">03</span>Permissions</a></li>
+      <li><a href="#processing"><span class="num">04</span>How your videos are processed and shared</a></li>
+      <li><a href="#subscriptions"><span class="num">05</span>Subscriptions and payments</a></li>
+      <li><a href="#choices"><span class="num">06</span>Your choices and rights</a></li>
+      <li><a href="#contact"><span class="num">07</span>Contact</a></li>
+    </ol>
+  </nav>
+
+  <section id="information" class="card">
+    <h2><span class="num">01</span>Information Cutoro handles</h2>
+    <p>Everything below is stored on your device, inside Cutoro's own storage. Your videos, sound and text are never sent to us. The only exception is the usage stats described in the next section.</p>
+    <table class="ticket">
+      <thead>
+        <tr><th scope="col">What</th><th scope="col">Why Cutoro uses it</th><th scope="col">Where it stays</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Videos you film or import</td>
+          <td data-label="Why">To cut silences, add subtitles and export your edit</td>
+          <td data-label="Where"><span class="where">On your iPhone</span></td>
+        </tr>
+        <tr>
+          <td>The sound in your videos</td>
+          <td data-label="Why">To find silences and write subtitles</td>
+          <td data-label="Where"><span class="where">On your iPhone</span></td>
+        </tr>
+        <tr>
+          <td>Subtitles and text you add</td>
+          <td data-label="Why">To show them on your video</td>
+          <td data-label="Where"><span class="where">On your iPhone</span></td>
+        </tr>
+        <tr>
+          <td>Your projects and templates</td>
+          <td data-label="Why">So you can come back to an edit</td>
+          <td data-label="Where"><span class="where">On your iPhone</span></td>
+        </tr>
+        <tr>
+          <td>Onboarding answers (what you make, where you post, your goal, how often you post, editing time)</td>
+          <td data-label="Why">To tailor defaults and show your estimated savings</td>
+          <td data-label="Where"><span class="where">On your iPhone</span> <span class="where share">+ usage stats while on</span></td>
+        </tr>
+        <tr>
+          <td>Posting streak and settings</td>
+          <td data-label="Why">To count your streak and remember your choices</td>
+          <td data-label="Where"><span class="where">On your iPhone</span></td>
+        </tr>
+      </tbody>
+    </table>
+    <p>We do not collect your name, email address, contacts, precise location, advertising identifier or browsing activity. Cutoro has no sign-in and contains no advertising code.</p>
+  </section>
+
+  <section id="analytics" class="card">
+    <h2><span class="num">02</span>Usage analytics (PostHog)</h2>
+    <p>Cutoro uses <a href="https://posthog.com">PostHog</a>, an analytics service, to understand how the app is used so we can fix problems and make it better. It is on by default, and you can turn it off anytime in <span class="switch">Settings › Share usage stats</span>. Once it's off, Cutoro stops sending anything to PostHog.</p>
+
+    <h3>What is sent</h3>
+    <ul class="stars">
+      <li>Which screens you open and which main buttons you tap, such as starting a new video, exporting or choosing a plan</li>
+      <li>Your onboarding answers (what you make, where you post, your goal, how often you post and your editing time)</li>
+      <li>Numbers about your edits: how many clips, how long the video is before and after cutting, how many cuts, and whether subtitles were on</li>
+      <li>Where you exported a video (Photos, the share sheet, TikTok, Instagram or YouTube) and whether it worked</li>
+      <li>Subscription events: which plan you picked, whether you started a free trial, and whether the purchase went through, was cancelled or failed. No payment details are included.</li>
+      <li>Your posting streak count and changes to Cutoro's settings</li>
+      <li>Basic app and device information: app version, iOS version, device model, language, and when the app is opened or closed</li>
+    </ul>
+
+    <h3>How you're identified</h3>
+    <p>Each install gets a random ID created by the app. It isn't linked to your name, email address or Apple Account. PostHog receives your IP address when the app sends data, and may use it to estimate your country and city.</p>
+
+    <h3>What is never sent</h3>
+    <p class="never">Your videos, their sound, subtitles or any text you type, project or file names, and recordings of your screen.</p>
+
+    <p>PostHog, Inc. processes this data for us on servers in the United States, under <a href="https://posthog.com/privacy">PostHog's Privacy Policy</a>. We don't sell this data or use it for advertising.</p>
+  </section>
+
+  <section id="permissions" class="card">
+    <h2><span class="num">03</span>Permissions</h2>
+    <p>iOS asks before Cutoro can use any of these, and you can change each one anytime in Settings › Cutoro.</p>
+    <table class="ticket">
+      <thead>
+        <tr><th scope="col">Permission</th><th scope="col">What it's for</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Camera</td><td data-label="What it's for">Filming a video of yourself with Film now</td></tr>
+        <tr><td>Microphone</td><td data-label="What it's for">Recording sound with the videos you film</td></tr>
+        <tr><td>Photos (pick and save)</td><td data-label="What it's for">Choosing clips to edit and saving finished videos to your library</td></tr>
+        <tr><td>Speech recognition</td><td data-label="What it's for">Turning what you say into subtitles</td></tr>
+        <tr><td>Notifications</td><td data-label="What it's for">A trial reminder 3 days before your free trial ends, and optional streak reminders</td></tr>
+      </tbody>
+    </table>
+    <p>Cutoro only sees the photos and videos you pick. Saying no to a permission turns off just the feature that needs it.</p>
+  </section>
+
+  <section id="processing" class="card">
+    <h2><span class="num">04</span>How your videos are processed and shared</h2>
+    <p><span class="lead-in">On your device.</span> Cutting silences, building subtitles, mirroring and exporting all happen on your iPhone.</p>
+    <p><span class="lead-in">Speech recognition.</span> Subtitles come from Apple's speech recognition. Cutoro asks for it to run on your device. If your iPhone can't do that for a language, Apple may process the audio on its servers under <a href="https://www.apple.com/legal/privacy/">Apple's Privacy Policy</a>. We never receive that audio or the transcript.</p>
+    <p><span class="lead-in">Sharing.</span> Cutoro only shares a video when you choose to. Saving puts it in your Photos library. Posting opens TikTok, Instagram or YouTube with your video, and from then on that app's own privacy policy applies.</p>
+  </section>
+
+  <section id="subscriptions" class="card">
+    <h2><span class="num">05</span>Subscriptions and payments</h2>
+    <p>Cutoro Pro is sold through Apple's App Store. Apple handles your payment and billing details. We never see your card or Apple Account details.</p>
+    <p>Cutoro only checks with the App Store whether your subscription or free trial is active, and when a trial ends, so it can unlock the app and send your trial reminder. You can manage or cancel your subscription anytime in Settings › your name › Subscriptions.</p>
+  </section>
+
+  <section id="choices" class="card">
+    <h2><span class="num">06</span>Your choices and rights</h2>
+    <p><span class="lead-in">Deleting your data.</span> Delete a project in Cutoro to remove its clips and edits. Deleting the app removes everything Cutoro stored. Videos you saved to Photos stay there until you delete them.</p>
+    <p><span class="lead-in">Access and other rights.</span> The only data that leaves your iPhone for us is the usage stats described above, which are tied to a random ID rather than to you. You can stop them anytime in Settings › Share usage stats. To ask us to delete the stats from your device, or with any other privacy question, contact us.</p>
+    <p><span class="lead-in">Security.</span> Your data on your iPhone is protected by its own security, such as your passcode and Face ID. Usage stats are sent to PostHog over an encrypted connection.</p>
+    <p><span class="lead-in">Children.</span> Cutoro is not directed at children under 13, and we don't knowingly collect personal information from children.</p>
+    <p><span class="lead-in">Changes.</span> If we change this policy, we'll update the date at the top and, for meaningful changes, let you know in the app.</p>
+  </section>
+
+  <section id="contact" class="card contact">
+    <h2><span class="num">07</span>Contact</h2>
+    <p>Questions about privacy? Write to us:</p>
+    <a class="email" href="mailto:matthewseto2004@gmail.com">matthewseto2004@gmail.com</a>
+  </section>
+
+  <footer>
+    <span class="mark">CUTORO</span>
+    Cut the silence · Keep the energy
+  </footer>
+</main>
+</body>
+</html>
