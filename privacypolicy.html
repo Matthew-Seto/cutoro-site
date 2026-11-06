@@ -429,13 +429,13 @@
 
   <div class="strip" aria-hidden="true">
     <span>★ Privacy policy</span>
-    <span class="no">Updated Oct 17, 2026</span>
+    <span class="no">Updated Nov 6, 2026</span>
     <span class="hide-sm">Cut the silence ★</span>
   </div>
 
   <div class="card">
     <span class="stamp">Stays on<br>your phone</span>
-    <p class="summary">Cutoro keeps your videos on your iPhone. We don't run accounts or ad trackers, and we never see, upload or sell your videos or voice. To improve the app, Cutoro sends anonymous usage stats to PostHog, and you can turn that off anytime in Settings.</p>
+    <p class="summary">Cutoro keeps your videos on your iPhone. We don't run accounts or ad trackers, and we never see, upload or sell your videos or voice. To improve the app, Cutoro sends anonymous usage stats to PostHog, and you can turn that off anytime in Settings. If you send us feedback, your message comes to us too.</p>
     <p>This policy explains what the Cutoro app for iPhone ("Cutoro", "we", "us") handles, why, and the choices you have. Cutoro is made by Jacob Seto. By using Cutoro you agree to this policy.</p>
   </div>
 
@@ -444,17 +444,18 @@
     <ol>
       <li><a href="#information"><span class="num">01</span>Information Cutoro handles</a></li>
       <li><a href="#analytics"><span class="num">02</span>Usage analytics (PostHog)</a></li>
-      <li><a href="#permissions"><span class="num">03</span>Permissions</a></li>
-      <li><a href="#processing"><span class="num">04</span>How your videos are processed and shared</a></li>
-      <li><a href="#subscriptions"><span class="num">05</span>Subscriptions and payments</a></li>
-      <li><a href="#choices"><span class="num">06</span>Your choices and rights</a></li>
-      <li><a href="#contact"><span class="num">07</span>Contact</a></li>
+      <li><a href="#feedback"><span class="num">03</span>Feedback you send</a></li>
+      <li><a href="#permissions"><span class="num">04</span>Permissions</a></li>
+      <li><a href="#processing"><span class="num">05</span>How your videos are processed and shared</a></li>
+      <li><a href="#subscriptions"><span class="num">06</span>Subscriptions and payments</a></li>
+      <li><a href="#choices"><span class="num">07</span>Your choices and rights</a></li>
+      <li><a href="#contact"><span class="num">08</span>Contact</a></li>
     </ol>
   </nav>
 
   <section id="information" class="card">
     <h2><span class="num">01</span>Information Cutoro handles</h2>
-    <p>Everything below is stored on your device, inside Cutoro's own storage. Your videos, sound and text are never sent to us. The only exception is the usage stats described in the next section.</p>
+    <p>Everything below is stored on your device, inside Cutoro's own storage. Your videos, their sound and the text you add to them are never sent to us. Only two things leave your iPhone for us: the usage stats described in the next section, and any feedback you choose to send.</p>
     <table class="ticket">
       <thead>
         <tr><th scope="col">What</th><th scope="col">Why Cutoro uses it</th><th scope="col">Where it stays</th></tr>
@@ -492,12 +493,12 @@
         </tr>
       </tbody>
     </table>
-    <p>We do not collect your name, email address, contacts, precise location, advertising identifier or browsing activity. Cutoro has no sign-in and contains no advertising code.</p>
+    <p>We do not collect your name, email address, contacts, precise location, advertising identifier or browsing activity. Cutoro has no sign-in and contains no advertising code. A feedback message only includes personal details if you type them in.</p>
   </section>
 
   <section id="analytics" class="card">
     <h2><span class="num">02</span>Usage analytics (PostHog)</h2>
-    <p>Cutoro uses <a href="https://posthog.com">PostHog</a>, an analytics service, to understand how the app is used so we can fix problems and make it better. It is on by default, and you can turn it off anytime in <span class="switch">Settings › Share usage stats</span>. Once it's off, Cutoro stops sending anything to PostHog.</p>
+    <p>Cutoro uses <a href="https://posthog.com">PostHog</a>, an analytics service, to understand how the app is used so we can fix problems and make it better. It is on by default, and you can turn it off anytime in <span class="switch">Settings › Share usage stats</span>. Turning it off sends one last event recording the change. After that, Cutoro stops sending anything to PostHog.</p>
 
     <h3>What is sent</h3>
     <ul class="stars">
@@ -507,6 +508,7 @@
       <li>Where you exported a video (Photos, the share sheet, TikTok, Instagram or YouTube) and whether it worked</li>
       <li>Subscription events: which plan you picked, whether you started a free trial, and whether the purchase went through, was cancelled or failed. No payment details are included.</li>
       <li>Your posting streak count and changes to Cutoro's settings</li>
+      <li>That you sent feedback, with its star rating and type. The message itself is not included.</li>
       <li>Basic app and device information: app version, iOS version, device model, language, and when the app is opened or closed</li>
     </ul>
 
@@ -519,8 +521,24 @@
     <p>PostHog, Inc. processes this data for us on servers in the United States, under <a href="https://posthog.com/privacy">PostHog's Privacy Policy</a>. We don't sell this data or use it for advertising.</p>
   </section>
 
+  <section id="feedback" class="card">
+    <h2><span class="num">03</span>Feedback you send</h2>
+    <p>Settings has a feedback form. Nothing is sent unless you fill it in and tap Send feedback, and it doesn't use the Share usage stats switch.</p>
+
+    <h3>What is sent</h3>
+    <ul class="stars">
+      <li>Your message, the star rating if you give one, and the type you pick (bug, idea, love it or other)</li>
+      <li>Unless you turn off <span class="switch">Include app and phone details</span>: app version, device type, iOS version, and your language and region setting</li>
+    </ul>
+
+    <p>No name, email address or install ID is added, so we can't reply and can't link a message to you. Anything you type goes as written, so please leave out personal details you don't want us to have.</p>
+
+    <h3>Where it goes</h3>
+    <p>Your feedback is sent over an encrypted connection to a Google Apps Script and saved in a Google Sheet that we use to read it. Google hosts both and handles this data under <a href="https://policies.google.com/privacy">Google's Privacy Policy</a>. Like any web service, Google can see your IP address when the message arrives. It isn't saved in the sheet.</p>
+  </section>
+
   <section id="permissions" class="card">
-    <h2><span class="num">03</span>Permissions</h2>
+    <h2><span class="num">04</span>Permissions</h2>
     <p>iOS asks before Cutoro can use any of these, and you can change each one anytime in Settings › Cutoro.</p>
     <table class="ticket">
       <thead>
@@ -538,29 +556,29 @@
   </section>
 
   <section id="processing" class="card">
-    <h2><span class="num">04</span>How your videos are processed and shared</h2>
+    <h2><span class="num">05</span>How your videos are processed and shared</h2>
     <p><span class="lead-in">On your device.</span> Cutting silences, building subtitles, mirroring and exporting all happen on your iPhone.</p>
     <p><span class="lead-in">Speech recognition.</span> Subtitles come from Apple's speech recognition. Cutoro asks for it to run on your device. If your iPhone can't do that for a language, Apple may process the audio on its servers under <a href="https://www.apple.com/legal/privacy/">Apple's Privacy Policy</a>. We never receive that audio or the transcript.</p>
-    <p><span class="lead-in">Sharing.</span> Cutoro only shares a video when you choose to. Saving puts it in your Photos library. Posting opens TikTok, Instagram or YouTube with your video, and from then on that app's own privacy policy applies.</p>
+    <p><span class="lead-in">Sharing.</span> Cutoro only shares a video when you choose to. Saving puts it in your Photos library. Posting opens TikTok, Instagram or YouTube with your video, and from then on that app's own privacy policy applies. Sharing a template sends its name, slots, settings and text, plus its sound if you choose to include it, to whoever you send it to.</p>
   </section>
 
   <section id="subscriptions" class="card">
-    <h2><span class="num">05</span>Subscriptions and payments</h2>
+    <h2><span class="num">06</span>Subscriptions and payments</h2>
     <p>Cutoro Pro is sold through Apple's App Store. Apple handles your payment and billing details. We never see your card or Apple Account details.</p>
     <p>Cutoro only checks with the App Store whether your subscription or free trial is active, and when a trial ends, so it can unlock the app and send your trial reminder. You can manage or cancel your subscription anytime in Settings › your name › Subscriptions.</p>
   </section>
 
   <section id="choices" class="card">
-    <h2><span class="num">06</span>Your choices and rights</h2>
-    <p><span class="lead-in">Deleting your data.</span> Delete a project in Cutoro to remove its clips and edits. Deleting the app removes everything Cutoro stored. Videos you saved to Photos stay there until you delete them.</p>
-    <p><span class="lead-in">Access and other rights.</span> The only data that leaves your iPhone for us is the usage stats described above, which are tied to a random ID rather than to you. You can stop them anytime in Settings › Share usage stats. To ask us to delete the stats from your device, or with any other privacy question, contact us.</p>
-    <p><span class="lead-in">Security.</span> Your data on your iPhone is protected by its own security, such as your passcode and Face ID. Usage stats are sent to PostHog over an encrypted connection.</p>
+    <h2><span class="num">07</span>Your choices and rights</h2>
+    <p><span class="lead-in">Deleting your data.</span> Delete a project in Cutoro to remove its clips and edits. Deleting the app removes everything Cutoro stored on your iPhone. Videos you saved to Photos stay there until you delete them. Deleting the app doesn't remove feedback you already sent. To ask us to delete a message, contact us and tell us roughly when you sent it and what it said.</p>
+    <p><span class="lead-in">Access and other rights.</span> The only data that leaves your iPhone for us is the usage stats and any feedback you send, both described above. Usage stats are tied to a random ID rather than to you, and you can stop them anytime in Settings › Share usage stats. To ask us to delete the stats from your device, or with any other privacy question, contact us.</p>
+    <p><span class="lead-in">Security.</span> Your data on your iPhone is protected by its own security, such as your passcode and Face ID. Usage stats and feedback are sent over encrypted connections.</p>
     <p><span class="lead-in">Children.</span> Cutoro is not directed at children under 13, and we don't knowingly collect personal information from children.</p>
     <p><span class="lead-in">Changes.</span> If we change this policy, we'll update the date at the top and, for meaningful changes, let you know in the app.</p>
   </section>
 
   <section id="contact" class="card contact">
-    <h2><span class="num">07</span>Contact</h2>
+    <h2><span class="num">08</span>Contact</h2>
     <p>Questions about privacy? Write to us:</p>
     <a class="email" href="mailto:matthewseto2004@gmail.com">matthewseto2004@gmail.com</a>
   </section>
