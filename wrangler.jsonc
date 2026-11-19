@@ -1,0 +1,12 @@
+// Cloudflare Workers: serves this folder as the cutoro.app website.
+// Deployed automatically on every push to main (Workers & Pages › cutoro-site › Settings › Build).
+{
+  "name": "cutoro-site",
+  "compatibility_date": "2026-11-01",
+  "assets": {
+    "directory": "./",
+    // /account serves account.html, and so on.
+    "html_handling": "auto-trailing-slash",
+    "not_found_handling": "404-page"
+  }
+}

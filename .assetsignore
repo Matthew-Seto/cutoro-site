@@ -1,0 +1,7 @@
+# Files in this folder that aren't part of the website.
+.DS_Store
+.git
+.gitignore
+.assetsignore
+wrangler.jsonc
+README.md
