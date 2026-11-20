@@ -9,7 +9,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bowlby+One&family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+<!-- The checksum makes the browser refuse this script if the CDN ever serves a changed copy. -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js" integrity="sha384-GFr3yTh5lJznCbZfpTtXnwboFsxqtTQoeTZCRHhE0579KrRmlCzen5AA8ohaB5ug" crossorigin="anonymous"></script>
 <style>
   :root {
     --paper: #F4E7CF; --surface: #FFF4DF; --line: #CDB48C; --ink: #2B1D14;
@@ -241,7 +242,7 @@
       if (ent.status === "past_due") fail("Your last payment didn't go through. Update your card below to keep Pro.");
     }
     const pending = recall();
-    if (!isPro && pending) {
+    if (!isPro && (pending === "monthly" || pending === "yearly")) {
       const radio = document.querySelector(`input[name="plan"][value="${pending}"]`);
       if (radio) { radio.checked = true; startCheckout(); }
     }
