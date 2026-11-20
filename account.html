@@ -52,13 +52,17 @@
   .plan input { accent-color: var(--red); width: 20px; height: 20px; margin: 0; }
   .plan .name { font-family: "Bowlby One", sans-serif; text-transform: uppercase; }
   .plan .detail { font-size: 14px; color: var(--muted); }
-  .plan .price { margin-left: auto; font-weight: 700; }
+  .plan .price { margin-left: auto; text-align: right; flex-shrink: 0; line-height: 1.2; }
+  .plan .price b { display: block; font-size: 19px; white-space: nowrap; }
+  .plan .price small { color: var(--muted); font-size: 13px; white-space: nowrap; }
   .plan:has(input:checked) { background: var(--mustard); }
   .tag { display: inline-block; white-space: nowrap; background: var(--teal); color: var(--cream); border-radius: 6px; padding: 2px 8px; margin-left: 6px; font-size: 11px; }
   .status { display: inline-block; padding: 4px 10px; border-radius: 8px; border: 2px solid var(--ink); }
   .status.on { background: var(--teal); color: var(--cream); }
   .status.off { background: var(--paper); }
   .steps { margin: 10px 0 0; padding-left: 20px; color: var(--soft); }
+  .card .step { margin: 22px 0 4px; color: var(--muted); }
+  .card .note { margin-top: 12px; }
   .error { color: var(--red); font-weight: 600; margin-top: 12px; }
   .note { color: var(--muted); font-size: 14px; margin-top: 12px; }
   [hidden] { display: none !important; }
@@ -75,16 +79,8 @@
   <h1>Cutoro <span>Pro</span></h1>
   <p class="lead">Unlimited auto cuts, accurate subtitles, copied edits and posting straight to TikTok, Reels and Shorts.</p>
 
-  <!-- Signed out -->
-  <section class="card" id="signed-out" hidden>
-    <h2>Sign in to start</h2>
-    <p>Use the same Apple or Google account you'll sign in with in the app. That's how the app knows you've paid.</p>
-    <button class="apple" id="apple">Continue with Apple</button>
-    <button class="google" id="google"><b style="color:var(--red)">G</b> Continue with Google</button>
-  </section>
-
-  <!-- Signed in, no plan -->
-  <section class="card" id="buy" hidden>
+  <!-- Not subscribed (signed in or not) -->
+  <section class="card" id="buy">
     <h2>Choose a plan</h2>
     <div class="plans">
       <label class="plan">
@@ -98,7 +94,17 @@
         <span class="price" id="monthly-price"></span>
       </label>
     </div>
-    <button class="primary" id="checkout">Continue to payment</button>
+    <button class="primary" id="checkout" hidden>Continue to payment</button>
+
+    <!-- Signed out: sign in is the next step, then Stripe -->
+    <div id="signed-out">
+      <p class="step mono">Next: sign in</p>
+      <p>Use the Apple or Google account you'll sign in with in the app. That's how the app knows you've paid.</p>
+      <button class="apple" id="apple">Continue with Apple</button>
+      <button class="google" id="google"><b style="color:var(--red)">G</b> Continue with Google</button>
+      <p class="note">Already subscribed? Sign in to manage your plan.</p>
+    </div>
+
     <p class="note">Payments are handled by Stripe. Renews automatically; cancel any time from this page.</p>
   </section>
 
@@ -127,7 +133,7 @@
   const CONFIG = {
     supabaseUrl: "https://wqfsgxzakdastoejzzjl.supabase.co",
     supabaseAnonKey: "sb_publishable_McD3qtzy257IpeOmtLzl-g_zLLWJ4P6",
-    prices: { monthly: "$7.99 / month", yearly: "$39.99 / year", yearlyDetail: "$3.33 a month, billed yearly" },
+    prices: { monthly: "$49.99 / month", yearly: "$379.99 / year", yearlyDetail: "$31.67 a month, billed yearly · save 37%" },
   };
 
   const $ = (id) => document.getElementById(id);
@@ -135,8 +141,20 @@
   const configured = !CONFIG.supabaseAnonKey.startsWith("YOUR-");
   const db = configured ? supabase.createClient(CONFIG.supabaseUrl, CONFIG.supabaseAnonKey) : null;
 
-  $("monthly-price").textContent = CONFIG.prices.monthly;
-  $("yearly-price").textContent = CONFIG.prices.yearly;
+  // "$39.99 / year" shows as the amount, with "/ year" under it.
+  function showPrice(id, text) {
+    const [amount, period] = text.split(" / ");
+    const b = document.createElement("b");
+    b.textContent = amount;
+    $(id).replaceChildren(b);
+    if (period) {
+      const small = document.createElement("small");
+      small.textContent = "/ " + period;
+      $(id).append(small);
+    }
+  }
+  showPrice("monthly-price", CONFIG.prices.monthly);
+  showPrice("yearly-price", CONFIG.prices.yearly);
   $("yearly-detail").textContent = CONFIG.prices.yearlyDetail;
 
   function fail(message) {
@@ -149,8 +167,15 @@
     if (label) button.textContent = on ? "One moment…" : label;
   }
 
+  const selectedPlan = () => document.querySelector('input[name="plan"]:checked').value;
+  const PLAN_KEY = "cutoro.pendingPlan";
+  const remember = (plan) => { try { sessionStorage.setItem(PLAN_KEY, plan); } catch (_) {} };
+  const recall = () => { try { const p = sessionStorage.getItem(PLAN_KEY); sessionStorage.removeItem(PLAN_KEY); return p; } catch (_) { return null; } };
+
   async function signIn(provider) {
     fail("");
+    // Picked a plan, then signed in: carry on to payment when they come back.
+    remember(selectedPlan());
     const { error } = await db.auth.signInWithOAuth({
       provider,
       options: { redirectTo: location.origin + location.pathname },
@@ -168,6 +193,23 @@
     return data;
   }
 
+  let checkingOut = false;
+  async function startCheckout() {
+    if (checkingOut) return;
+    checkingOut = true;
+    const plan = selectedPlan();
+    fail("");
+    busy($("checkout"), true, "Continue to payment");
+    try {
+      const { url } = await callFunction("stripe-checkout", { plan });
+      location.href = url;
+    } catch (e) {
+      fail(e.message);
+      busy($("checkout"), false, "Continue to payment");
+      checkingOut = false;
+    }
+  }
+
   async function render() {
     if (!configured) {
       fail("This page isn't connected yet: add the Supabase URL and anon key in account.html.");
@@ -176,9 +218,10 @@
     const { data: { session } } = await db.auth.getSession();
     const signedIn = !!session;
     show("signed-out", !signedIn);
+    show("checkout", signedIn);
     show("signout", signedIn);
     $("who").textContent = signedIn ? (session.user.email || "Signed in") : "";
-    if (!signedIn) { show("buy", false); show("active", false); return; }
+    if (!signedIn) { show("buy", true); show("active", false); return; }
 
     const { data: ent, error } = await db.from("entitlements")
       .select("status, plan, current_period_end, cancel_at_period_end")
@@ -196,6 +239,11 @@
         ? (ent.cancel_at_period_end ? `Ends on ${date}.` : `Renews on ${date}.`)
         : "";
       if (ent.status === "past_due") fail("Your last payment didn't go through. Update your card below to keep Pro.");
+    }
+    const pending = recall();
+    if (!isPro && pending) {
+      const radio = document.querySelector(`input[name="plan"][value="${pending}"]`);
+      if (radio) { radio.checked = true; startCheckout(); }
     }
   }
 
@@ -221,18 +269,7 @@
     $("google").onclick = () => signIn("google");
     $("signout").onclick = async () => { await db.auth.signOut(); render(); };
 
-    $("checkout").onclick = async () => {
-      const plan = document.querySelector('input[name="plan"]:checked').value;
-      fail("");
-      busy($("checkout"), true, "Continue to payment");
-      try {
-        const { url } = await callFunction("stripe-checkout", { plan });
-        location.href = url;
-      } catch (e) {
-        fail(e.message);
-        busy($("checkout"), false, "Continue to payment");
-      }
-    };
+    $("checkout").onclick = () => startCheckout();
 
     $("portal").onclick = async () => {
       fail("");
