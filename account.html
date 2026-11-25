@@ -5,130 +5,238 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Cutoro Pro · Account</title>
 <meta name="description" content="Get Cutoro Pro on the web, then sign in to the Cutoro app with the same account.">
-<meta name="theme-color" content="#C83A2A">
+<meta name="theme-color" content="#F4E7CF">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bowlby+One&family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bowlby+One&family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css">
 <!-- The checksum makes the browser refuse this script if the CDN ever serves a changed copy. -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js" integrity="sha384-GFr3yTh5lJznCbZfpTtXnwboFsxqtTQoeTZCRHhE0579KrRmlCzen5AA8ohaB5ug" crossorigin="anonymous"></script>
 <style>
-  :root {
-    --paper: #F4E7CF; --surface: #FFF4DF; --line: #CDB48C; --ink: #2B1D14;
-    --soft: #4A382B; --muted: #6E5A48; --red: #C83A2A; --cream: #FFF4DF;
-    --mustard: #F2B33D; --teal: #2E6B6E;
+  .account { display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); gap: 56px; align-items: start; padding-top: 48px; }
+
+  /* Left: the Pro poster and what you get */
+  .pro-poster {
+    position: relative; min-height: 220px; padding: 26px;
+    border: var(--ink-heavy) solid var(--ink); border-radius: var(--corner);
+    box-shadow: var(--hero-shadow) var(--hero-shadow) 0 var(--ink);
+    display: flex; flex-direction: column; justify-content: flex-end;
   }
-  * { box-sizing: border-box; }
-  body {
-    margin: 0; background-color: var(--paper);
-    background-image: radial-gradient(rgba(43, 29, 20, 0.07) 1px, transparent 1.3px);
-    background-size: 14px 14px; color: var(--ink);
-    font-family: "Bricolage Grotesque", system-ui, sans-serif; font-size: 17px; line-height: 1.55;
+  .pro-poster .display { font-size: clamp(52px, 6.4vw, 78px); -webkit-text-stroke: 1.3px var(--ink); paint-order: stroke fill; text-shadow: 4px 4px 0 var(--ink); }
+  .pro-poster .display span { display: block; }
+  .pro-poster .c { color: var(--cream); }
+  .pro-poster .r { color: var(--red); }
+  .pro-poster .print-tag { position: absolute; top: -14px; right: 20px; }
+  .pro-poster img { position: absolute; right: -8px; bottom: -28px; width: 170px; }
+  .lead { color: var(--soft); font-size: 18px; margin: 44px 0 0; }
+  .checks { list-style: none; padding: 0; margin: 20px 0 0; display: grid; gap: 12px; }
+  .checks li { display: flex; gap: 12px; align-items: center; font-weight: 600; }
+  .checks li::before {
+    content: ""; flex: none; width: 22px; height: 22px; background: var(--mustard);
+    border: 2px solid var(--ink); box-shadow: 2px 2px 0 var(--ink);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M5 10.5l3.2 3L15 6.5' fill='none' stroke='%232B1D14' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-size: 16px; background-position: center; background-repeat: no-repeat;
   }
-  a { color: var(--red); text-decoration-thickness: 2px; text-underline-offset: 3px; }
-  .wrap { max-width: 640px; margin: 0 auto; padding: 28px 16px 56px; }
-  .top { display: flex; justify-content: space-between; align-items: center; }
-  .home { font-family: "Bowlby One", sans-serif; font-size: 26px; color: var(--red); text-decoration: none; text-shadow: 2px 2px 0 var(--ink); }
-  .mono { font-family: "DM Mono", monospace; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; }
-  h1 { font-family: "Bowlby One", sans-serif; font-weight: 400; font-size: clamp(36px, 9vw, 54px); line-height: 0.95; margin: 26px 0 8px; }
-  h1 span { color: var(--red); text-shadow: 3px 3px 0 var(--ink); }
-  .lead { color: var(--soft); margin: 0 0 22px; }
-  .card { background: var(--surface); border: 3px solid var(--ink); border-radius: 18px; box-shadow: 5px 5px 0 var(--ink); padding: 20px; margin-top: 18px; }
-  .card h2 { margin: 0 0 6px; font-family: "Bowlby One", sans-serif; font-weight: 400; font-size: 20px; text-transform: uppercase; }
-  .card p { margin: 0; color: var(--soft); }
-  button {
-    font: inherit; cursor: pointer; width: 100%; min-height: 54px; margin-top: 12px;
-    border: 3px solid var(--ink); border-radius: 14px; box-shadow: 4px 4px 0 var(--ink);
-    font-weight: 700; font-size: 17px; display: flex; align-items: center; justify-content: center; gap: 10px;
-    transition: transform .06s, box-shadow .06s;
+
+  /* Right: the checkout panel */
+  .panel { padding: 28px; }
+  .panel + .panel { margin-top: 24px; }
+  .panel h2 { margin: 0 0 4px; font-family: var(--display); font-weight: 400; font-size: 24px; text-transform: uppercase; line-height: 1.1; }
+  .panel p { margin: 0; color: var(--soft); }
+  .who { display: block; margin-bottom: 14px; color: var(--muted); overflow-wrap: anywhere; }
+  .who:empty { display: none; }
+
+  /* Plan tickets: a stub with the radio, the name, and the price */
+  .plans { display: grid; gap: 16px; margin-top: 22px; }
+  .plan {
+    position: relative; display: flex; align-items: stretch; min-height: 76px; cursor: pointer;
+    background: var(--surface2); border: var(--ink-w) solid var(--ink); border-radius: var(--corner);
+    transition: transform .12s ease-out, box-shadow .12s ease-out;
   }
-  button:active { transform: translate(3px, 3px); box-shadow: 1px 1px 0 var(--ink); }
-  button:focus-visible { outline: 3px solid var(--mustard); outline-offset: 3px; }
-  button[disabled] { opacity: .55; cursor: default; }
-  .apple { background: #000; color: #fff; }
-  .google { background: var(--surface); color: var(--ink); }
-  .primary { background: var(--red); color: var(--cream); font-family: "Bowlby One", sans-serif; font-weight: 400; text-transform: uppercase; letter-spacing: .02em; }
-  .quiet { background: transparent; box-shadow: none; border-color: var(--line); color: var(--soft); min-height: 44px; font-size: 15px; }
-  .plans { display: grid; gap: 12px; margin-top: 14px; }
-  .plan { display: flex; align-items: center; gap: 14px; padding: 14px 16px; border: 3px solid var(--ink); border-radius: 14px; background: var(--paper); cursor: pointer; }
-  .plan input { accent-color: var(--red); width: 20px; height: 20px; margin: 0; }
-  .plan .name { font-family: "Bowlby One", sans-serif; text-transform: uppercase; }
-  .plan .detail { font-size: 14px; color: var(--muted); }
-  .plan .price { margin-left: auto; text-align: right; flex-shrink: 0; line-height: 1.2; }
-  .plan .price b { display: block; font-size: 19px; white-space: nowrap; }
-  .plan .price small { color: var(--muted); font-size: 13px; white-space: nowrap; }
-  .plan:has(input:checked) { background: var(--mustard); }
-  .tag { display: inline-block; white-space: nowrap; background: var(--teal); color: var(--cream); border-radius: 6px; padding: 2px 8px; margin-left: 6px; font-size: 11px; }
-  .status { display: inline-block; padding: 4px 10px; border-radius: 8px; border: 2px solid var(--ink); }
-  .status.on { background: var(--teal); color: var(--cream); }
-  .status.off { background: var(--paper); }
-  .steps { margin: 10px 0 0; padding-left: 20px; color: var(--soft); }
-  .card .step { margin: 22px 0 4px; color: var(--muted); }
-  .card .note { margin-top: 12px; }
-  .error { color: var(--red); font-weight: 600; margin-top: 12px; }
-  .note { color: var(--muted); font-size: 14px; margin-top: 12px; }
-  [hidden] { display: none !important; }
-  footer { margin-top: 34px; text-align: center; color: var(--muted); }
+  .plan:has(input:checked) { background: var(--surface); border-width: var(--ink-heavy); box-shadow: 5px 5px 0 var(--teal); }
+  .plan:has(input:focus-visible) { outline: 3px solid var(--mustard); outline-offset: 3px; }
+  .plan .stub { width: 58px; flex: none; display: grid; place-items: center; border-right: 2.5px dashed var(--ink); border-radius: 5px 0 0 5px; }
+  .plan:has(input:checked) .stub { background: var(--mustard); }
+  .plan input {
+    appearance: none; -webkit-appearance: none; margin: 0; width: 22px; height: 22px; border-radius: 50%;
+    border: 2.5px solid var(--ink); background: var(--surface); display: grid; place-items: center; cursor: pointer;
+  }
+  .plan input:checked::after { content: ""; width: 10px; height: 10px; border-radius: 50%; background: var(--ink); }
+  .plan input:focus-visible { outline: none; }
+  .plan .what { padding: 12px 14px; display: flex; flex-direction: column; justify-content: center; min-width: 0; }
+  .plan .name { font-family: var(--display); font-size: 19px; text-transform: uppercase; line-height: 1.1; }
+  .plan .detail { font-size: 13.5px; color: var(--soft); }
+  .plan .price { margin-left: auto; padding: 0 16px; text-align: right; flex-shrink: 0; line-height: 1.2; display: flex; flex-direction: column; justify-content: center; }
+  .plan .price b { display: block; font-size: 20px; white-space: nowrap; }
+  .plan .price small { color: var(--muted); font-size: 12.5px; white-space: nowrap; }
+  .plan .print-tag { position: absolute; top: -12px; right: 14px; }
+
+  .panel .btn { width: 100%; margin-top: 14px; }
+  #checkout { margin-top: 22px; }
+  .divider {
+    display: flex; align-items: center; gap: 12px; margin: 28px 0 10px; color: var(--muted);
+  }
+  .divider::before, .divider::after { content: ""; flex: 1; border-top: 2px dashed var(--line); }
+  .btn-apple { background: #000; color: #fff; }
+  .btn-apple:hover { background: #222; color: #fff; }
+  .btn-apple svg { width: 18px; height: 18px; fill: currentColor; }
+  .g { font-weight: 800; color: var(--red); font-size: 18px; }
+  .note { color: var(--muted); font-size: 14px; margin-top: 14px !important; }
+  .fine { display: flex; gap: 10px; align-items: flex-start; margin-top: 22px !important; padding-top: 16px; border-top: 2px dashed var(--line); font-size: 13.5px; color: var(--muted) !important; }
+
+  .status {
+    display: inline-block; margin: 12px 0 4px; padding: 5px 12px; border: 2px solid var(--ink); border-radius: 4px;
+    background: var(--teal); color: var(--cream); transform: rotate(-2deg);
+  }
+  .steps { margin: 16px 0 0; padding-left: 22px; color: var(--soft); display: grid; gap: 6px; }
+  .steps li::marker { font-family: var(--mono); color: var(--red); font-weight: 500; }
+
+  .error {
+    margin: 20px 0 0; padding: 12px 14px; font-weight: 600; color: var(--red-deep);
+    background: var(--tint); border: 2px solid var(--red); border-radius: var(--corner-sm);
+  }
+  .info { margin: 20px 0 0; padding: 12px 14px; color: var(--ink); background: var(--surface); border: 2px dashed var(--teal); border-radius: var(--corner-sm); }
+  .quiet {
+    width: 100%; margin-top: 16px; min-height: 44px; font: inherit; font-size: 15px; font-weight: 600; cursor: pointer;
+    background: transparent; color: var(--soft); border: 2px solid var(--line); border-radius: var(--corner);
+  }
+  .quiet:hover { border-color: var(--ink); color: var(--ink); }
+
+  @media (max-width: 900px) {
+    .account { grid-template-columns: minmax(0, 1fr); gap: 40px; padding-top: 32px; }
+    .lead { margin-top: 36px; }
+  }
+  @media (max-width: 600px) {
+    .panel { padding: 22px 18px; }
+    .pro-poster { min-height: 170px; padding: 20px; }
+    .pro-poster img { width: 130px; bottom: -22px; }
+    .plan .stub { width: 46px; }
+    .plan .what { padding: 12px 10px; }
+    .plan .price { padding: 0 12px 0 4px; }
+  }
 </style>
 </head>
 <body>
-<main class="wrap">
-  <div class="top">
-    <a class="home" href="./">CUTORO</a>
-    <span class="mono" id="who"></span>
+
+<header class="site-header">
+  <div class="container">
+    <a class="brand" href="./" aria-label="Cutoro home">
+      <img class="brand-mark" src="assets/mark.svg" alt="">
+      <span class="brand-word">CUTORO</span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a class="hide-sm" href="./#how">How it works</a>
+      <a class="hide-sm" href="./#features">Features</a>
+      <a href="account.html" aria-current="page">Account</a>
+    </nav>
+  </div>
+</header>
+
+<main class="container account">
+  <div>
+    <div class="pro-poster halftone">
+      <span class="print-tag">Admit one · All access</span>
+      <h1 class="display"><span class="c">Cutoro</span><span class="r">Pro</span></h1>
+      <img src="assets/snip.svg" alt="" data-reveal="hop">
+    </div>
+    <p class="lead">Get Pro here, then sign in to the Cutoro app with the same account. Everything unlocks on your iPhone.</p>
+    <ul class="checks">
+      <li>Unlimited auto cuts and exports</li>
+      <li>Accurate subtitles you can edit</li>
+      <li>Copy the edit of any video</li>
+      <li>Post straight to TikTok, Reels and Shorts</li>
+    </ul>
   </div>
 
-  <h1>Cutoro <span>Pro</span></h1>
-  <p class="lead">Unlimited auto cuts, accurate subtitles, copied edits and posting straight to TikTok, Reels and Shorts.</p>
+  <div>
+    <span class="who mono" id="who"></span>
+    <!-- Not subscribed (signed in or not) -->
+    <section class="card panel" id="buy">
+      <h2>Choose a plan</h2>
+      <p>Renews automatically. Cancel any time from this page.</p>
+      <div class="plans">
+        <label class="plan">
+          <span class="print-tag red">Best value</span>
+          <span class="stub"><input type="radio" name="plan" value="yearly" checked></span>
+          <span class="what"><span class="name">Yearly</span><span class="detail" id="yearly-detail"></span></span>
+          <span class="price" id="yearly-price"></span>
+        </label>
+        <label class="plan">
+          <span class="stub"><input type="radio" name="plan" value="monthly"></span>
+          <span class="what"><span class="name">Monthly</span><span class="detail">Cancel any time</span></span>
+          <span class="price" id="monthly-price"></span>
+        </label>
+      </div>
+      <button class="btn btn-primary" id="checkout" hidden>Continue to payment</button>
 
-  <!-- Not subscribed (signed in or not) -->
-  <section class="card" id="buy">
-    <h2>Choose a plan</h2>
-    <div class="plans">
-      <label class="plan">
-        <input type="radio" name="plan" value="yearly" checked>
-        <span><span class="name">Yearly</span><span class="tag mono">Best value</span><br><span class="detail" id="yearly-detail"></span></span>
-        <span class="price" id="yearly-price"></span>
-      </label>
-      <label class="plan">
-        <input type="radio" name="plan" value="monthly">
-        <span><span class="name">Monthly</span></span>
-        <span class="price" id="monthly-price"></span>
-      </label>
-    </div>
-    <button class="primary" id="checkout" hidden>Continue to payment</button>
+      <!-- Signed out: sign in is the next step, then Stripe -->
+      <div id="signed-out">
+        <p class="divider mono">Next: sign in</p>
+        <p>Use the Apple or Google account you'll sign in with in the app. That's how the app knows you've paid.</p>
+        <button class="btn btn-apple" id="apple">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.4 12.6c0-2.6 2.1-3.8 2.2-3.9-1.2-1.8-3.1-2-3.7-2-1.6-.2-3.1.9-3.9.9-.8 0-2-.9-3.4-.9-1.7 0-3.3 1-4.2 2.6-1.8 3.1-.5 7.7 1.3 10.2.9 1.2 1.9 2.6 3.2 2.6 1.3-.1 1.8-.8 3.3-.8 1.6 0 2 .8 3.4.8 1.4 0 2.3-1.3 3.1-2.5 1-1.4 1.4-2.8 1.4-2.9 0 0-2.7-1-2.7-4.1ZM13.9 4.9c.7-.9 1.2-2 1-3.2-1 0-2.3.7-3 1.6-.7.8-1.2 2-1.1 3.1 1.2.1 2.3-.6 3.1-1.5Z"/></svg>
+          Continue with Apple
+        </button>
+        <button class="btn" id="google"><span class="g" aria-hidden="true">G</span> Continue with Google</button>
+        <p class="note">Already subscribed? Sign in to manage your plan.</p>
+      </div>
 
-    <!-- Signed out: sign in is the next step, then Stripe -->
-    <div id="signed-out">
-      <p class="step mono">Next: sign in</p>
-      <p>Use the Apple or Google account you'll sign in with in the app. That's how the app knows you've paid.</p>
-      <button class="apple" id="apple">Continue with Apple</button>
-      <button class="google" id="google"><b style="color:var(--red)">G</b> Continue with Google</button>
-      <p class="note">Already subscribed? Sign in to manage your plan.</p>
-    </div>
+      <p class="fine">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true" style="flex:none;margin-top:2px"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
+        <span>Payments are handled securely by Stripe. We never see your card details.</span>
+      </p>
+    </section>
 
-    <p class="note">Payments are handled by Stripe. Renews automatically; cancel any time from this page.</p>
-  </section>
+    <!-- Signed in, subscribed -->
+    <section class="card panel" id="active" hidden>
+      <h2>You're Pro</h2>
+      <span class="status mono" id="plan-status">Active</span>
+      <p class="note" id="renews"></p>
+      <ol class="steps">
+        <li>Open Cutoro on your iPhone.</li>
+        <li>Tap <b>Sign in</b> at the top of the paywall (or <b>Have an account?</b> on the first screen).</li>
+        <li>Choose the same account you used here.</li>
+      </ol>
+      <button class="btn btn-secondary" id="portal">Manage plan, card or cancel</button>
+    </section>
 
-  <!-- Signed in, subscribed -->
-  <section class="card" id="active" hidden>
-    <h2>You're Pro</h2>
-    <p><span class="status on mono" id="plan-status">Active</span></p>
-    <p class="note" id="renews"></p>
-    <ol class="steps">
-      <li>Open Cutoro on your iPhone.</li>
-      <li>Tap <b>Sign in</b> at the top of the paywall (or <b>Have an account?</b> on the first screen).</li>
-      <li>Choose the same account you used here.</li>
-    </ol>
-    <button class="google" id="portal">Manage plan, card or cancel</button>
-  </section>
-
-  <p class="error" id="error" hidden></p>
-  <p class="note" id="info" hidden></p>
-  <button class="quiet" id="signout" hidden>Sign out</button>
-
-  <footer class="mono"><a href="privacypolicy.html">Privacy</a> · <a href="https://www.apple.com/legal/internet-services/itunes/dev/stdeula/">Terms</a></footer>
+    <p class="error" id="error" hidden></p>
+    <p class="info" id="info" hidden></p>
+    <button class="quiet" id="signout" hidden>Sign out</button>
+  </div>
 </main>
 
+<footer class="site-footer">
+  <div class="container">
+    <div>
+      <span class="brand-word">CUTORO</span>
+      <p>Cuts the silence out of your talking videos, adds subtitles, and gets you posting faster.</p>
+    </div>
+    <div>
+      <h4>Product</h4>
+      <ul>
+        <li><a href="./#how">How it works</a></li>
+        <li><a href="./#features">Features</a></li>
+        <li><a href="account.html">Cutoro Pro</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Company</h4>
+      <ul>
+        <li><a href="privacypolicy.html">Privacy policy</a></li>
+        <li><a href="https://www.apple.com/legal/internet-services/itunes/dev/stdeula/">Terms</a></li>
+        <li><a href="mailto:matthewseto2004@gmail.com">Support &amp; contact</a></li>
+      </ul>
+    </div>
+    <div class="footer-base">
+      <span>© 2026 Cutoro · Made by Jacob Seto</span>
+      <span>Cut the silence · Keep the energy</span>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/motion.js"></script>
 <script>
   // ── Fill these in (Supabase › Project Settings › API, and your Stripe prices) ──
   const CONFIG = {

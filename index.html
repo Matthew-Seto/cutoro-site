@@ -5,188 +5,487 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Cutoro · Cut the silence</title>
 <meta name="description" content="Cutoro cuts the silence out of your talking videos, adds subtitles, and gets you posting faster. For iPhone.">
-<meta name="theme-color" content="#C83A2A">
+<meta name="theme-color" content="#F4E7CF">
+<meta property="og:title" content="Cutoro · Cut the silence">
+<meta property="og:description" content="Drop in a clip. Cutoro cuts the silence, adds subtitles, and gets you posting faster.">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bowlby+One&family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bowlby+One&family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css">
 <style>
-  :root {
-    --paper: #F4E7CF; --surface: #FFF4DF; --line: #CDB48C; --ink: #2B1D14;
-    --soft: #4A382B; --muted: #6E5A48; --red: #C83A2A; --cream: #FFF4DF;
-    --mustard: #F2B33D; --teal: #2E6B6E;
-  }
-  * { box-sizing: border-box; }
-  body {
-    margin: 0;
-    background-color: var(--paper);
-    background-image: radial-gradient(rgba(43, 29, 20, 0.07) 1px, transparent 1.3px);
-    background-size: 14px 14px;
-    color: var(--ink);
-    font-family: "Bricolage Grotesque", system-ui, sans-serif;
-    font-size: 17px;
-    line-height: 1.55;
-  }
-  a { color: var(--red); text-decoration-thickness: 2px; text-underline-offset: 3px; }
-  a:focus-visible { outline: 3px solid var(--mustard); outline-offset: 2px; border-radius: 4px; }
-  .wrap { max-width: 780px; margin: 0 auto; padding: 28px 16px 56px; }
-
-  .poster {
+  /* ── Hero ── */
+  .hero { padding: 40px 0 0; }
+  .hero-poster {
     position: relative; overflow: hidden;
-    border: 3px solid var(--ink); border-radius: 22px; box-shadow: 7px 7px 0 var(--ink);
-    background: repeating-conic-gradient(from 0deg at 50% 118%, #C83A2A 0deg 4deg, #B83223 4deg 8deg);
-    color: var(--cream);
-    padding: 26px 26px 0; min-height: 360px;
+    border: var(--ink-heavy) solid var(--ink); border-radius: var(--corner);
+    box-shadow: var(--hero-shadow) var(--hero-shadow) 0 var(--ink);
+    display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr); align-items: end; gap: 24px;
+    padding: 56px 56px 0; color: var(--cream);
   }
-  .poster::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 3px; background: var(--ink); }
-  .ink-tag {
-    display: inline-block; font-family: "DM Mono", monospace; font-size: 12px; letter-spacing: 0.14em;
-    text-transform: uppercase; background: var(--ink); color: var(--cream); padding: 4px 10px; border-radius: 4px;
+  .hero-copy { padding-bottom: 64px; position: relative; z-index: 2; }
+  .hero h1 {
+    margin: 22px 0 0; font-size: clamp(46px, 7.4vw, 92px);
+    text-shadow: 4px 4px 0 var(--ink);
+    -webkit-text-stroke: 1.2px var(--ink); paint-order: stroke fill;
   }
-  h1 {
-    margin: 14px 0 0; font-family: "Bowlby One", sans-serif; font-weight: 400;
-    font-size: clamp(54px, 14vw, 96px); line-height: 0.9; text-shadow: 4px 4px 0 var(--ink);
-  }
-  .tagline {
-    position: relative; z-index: 2; max-width: 50%; margin: 16px 0 22px;
-    font-weight: 600; font-size: 19px; line-height: 1.4;
-  }
-  .tagline b { color: var(--mustard); font-weight: 700; }
-  .badge {
-    position: relative; z-index: 2; display: inline-flex; align-items: center; gap: 10px;
-    margin-bottom: 30px; padding: 10px 18px;
-    background: var(--mustard); color: var(--ink);
-    border: 3px solid var(--ink); border-radius: 14px; box-shadow: 4px 4px 0 var(--ink);
-    font-family: "Bowlby One", sans-serif; font-size: 17px; letter-spacing: 0.02em;
-    text-transform: uppercase; text-decoration: none;
-  }
-  .badge small { font-family: "DM Mono", monospace; font-size: 11px; letter-spacing: 0.12em; display: block; }
-  .snip { position: absolute; right: -6px; bottom: -4px; width: min(320px, 50%); height: auto; z-index: 1; }
+  .hero h1 .line { display: block; }
+  .hero h1 .accent { color: var(--mustard); }
+  .hero-lead { max-width: 470px; margin: 22px 0 32px; font-size: 20px; font-weight: 600; line-height: 1.45; }
+  .hero-lead b { color: var(--mustard); }
+  .hero-actions { display: flex; flex-wrap: wrap; gap: 16px; }
+  .hero-note { margin: 22px 0 0; font-family: var(--mono); font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; opacity: .9; }
 
-  .strip {
-    display: flex; justify-content: space-between; gap: 10px; margin-top: 22px; padding: 6px 12px;
-    background: var(--red); color: var(--cream); border: 2px solid var(--ink);
-    font-family: "DM Mono", monospace; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase;
-    white-space: nowrap; overflow: hidden;
+  /* Phone */
+  .hero-stage { position: relative; align-self: end; display: flex; justify-content: center; }
+  .phone {
+    position: relative; z-index: 1; width: 300px; margin-bottom: -40px;
+    background: var(--ink); border: var(--ink-heavy) solid var(--ink); border-radius: 34px;
+    padding: 10px; box-shadow: var(--hero-shadow) var(--hero-shadow) 0 rgba(43, 29, 20, .55);
   }
+  .screen {
+    background: var(--paper); border-radius: 26px; overflow: hidden; color: var(--ink);
+    background-image: radial-gradient(rgba(43, 29, 20, 0.07) 0.7px, transparent 0.9px); background-size: 6px 6px;
+    padding: 14px 14px 56px;
+  }
+  .screen-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+  .screen-bar .ico {
+    width: 30px; height: 30px; border: 2px solid var(--ink); border-radius: var(--corner-sm);
+    background: var(--surface); box-shadow: 2px 2px 0 var(--ink); display: grid; place-items: center;
+    font-weight: 700; font-size: 14px; line-height: 1;
+  }
+  .screen-bar .title { font-family: var(--display); font-size: 15px; letter-spacing: 0.02em; }
+  .video {
+    position: relative; aspect-ratio: 4 / 4.6; border: var(--ink-w) solid var(--ink); border-radius: var(--corner);
+    box-shadow: 4px 4px 0 var(--ink); overflow: hidden;
+    background:
+      radial-gradient(circle at 50% 40%, #2B1D14 0 17%, transparent 17.5%),
+      radial-gradient(ellipse 46% 34% at 50% 98%, #2B1D14 0 98%, transparent 100%),
+      radial-gradient(circle, rgba(200, 58, 42, .35) 1.4px, transparent 1.8px) 0 0 / 7px 7px,
+      linear-gradient(170deg, var(--mustard), var(--red-ray));
+  }
+  .video .print-tag { position: absolute; top: 10px; left: 10px; }
+  .caption {
+    position: absolute; left: 0; right: 0; bottom: 18%; text-align: center;
+    font-family: var(--display); font-size: 21px; color: #fff; line-height: 1;
+    -webkit-text-stroke: 4px #000; paint-order: stroke fill;
+  }
+  .caption mark { background: none; color: var(--mustard); }
+  .mini-wave { margin-top: 14px; padding: 8px 8px; height: 50px; }
+  .lengths { display: flex; align-items: baseline; justify-content: space-between; margin-top: 12px; font-family: var(--mono); font-size: 12px; }
+  .lengths s { color: var(--muted); text-decoration-color: var(--red); text-decoration-thickness: 2px; }
+  .lengths b { font-family: var(--display); font-weight: 400; font-size: 20px; color: var(--red); }
+  .snip-hero { position: absolute; z-index: 3; width: 180px; left: -110px; bottom: -4px; }
 
-  .features { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; margin-top: 26px; }
-  .card {
-    background: var(--surface); border: 3px solid var(--ink); border-radius: 18px;
-    box-shadow: 5px 5px 0 var(--ink); padding: 20px;
+  /* Waveform (bars) */
+  .wave { display: flex; align-items: center; gap: 3px; background: var(--surface); }
+  .wave i {
+    flex: 1 1 0; min-width: 2px; height: var(--h); max-width: 9px;
+    background: var(--red); border-radius: 99px; outline: 1.5px solid var(--ink); outline-offset: -1.5px;
   }
-  .card .num {
-    display: inline-block; font-family: "DM Mono", monospace; font-size: 12px; color: var(--cream);
-    background: var(--red); border: 2px solid var(--ink); border-radius: 6px; padding: 1px 7px;
-  }
-  .card h2 {
-    margin: 10px 0 6px; font-family: "Bowlby One", sans-serif; font-weight: 400;
-    font-size: 22px; line-height: 1.1; text-transform: uppercase;
-  }
-  .card p { margin: 0; color: var(--soft); }
-  .card.teal { background: var(--teal); color: var(--cream); }
-  .card.teal p { color: var(--cream); }
-  .card.mustard { background: var(--mustard); }
+  .wave .gap { display: flex; align-items: center; gap: 3px; height: 100%; flex: 0 0 auto; }
+  .wave .gap i { background: var(--cut); outline: none; opacity: .55; width: 4px; }
 
-  .links {
-    display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px;
-  }
-  .links a {
-    font-family: "DM Mono", monospace; font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase;
-    color: var(--ink); text-decoration: none; background: var(--surface);
-    border: 2px solid var(--ink); border-radius: 10px; box-shadow: 3px 3px 0 var(--ink); padding: 9px 14px;
-  }
-  .links a:hover { background: var(--mustard); }
+  /* ── Sections ── */
+  section.block { padding-top: 112px; }
+  .block-head { display: flex; justify-content: space-between; align-items: end; gap: 32px; flex-wrap: wrap; margin-bottom: 40px; }
 
-  footer {
-    margin-top: 34px; text-align: center; font-family: "DM Mono", monospace; font-size: 12px;
-    letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted);
+  /* How it works */
+  .demo { padding: 28px; }
+  .demo-top { display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; margin-bottom: 22px; }
+  .seg {
+    display: inline-flex; gap: 4px; padding: 4px; background: var(--surface);
+    border: 2px solid var(--ink); border-radius: var(--corner);
   }
+  .seg button {
+    font: inherit; font-weight: 600; font-size: 14px; border: 0; cursor: pointer; background: transparent; color: var(--soft);
+    min-height: 40px; padding: 0 18px; border-radius: 5px;
+  }
+  .seg button[aria-pressed="true"] { background: var(--ink); color: var(--cream); font-weight: 700; }
+  .demo-len { font-family: var(--mono); font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+  .demo-len b { font-family: var(--display); font-weight: 400; font-size: 26px; color: var(--red); letter-spacing: 0; margin-left: 8px; }
+  .big-wave {
+    height: 150px; padding: 18px 16px; border: var(--ink-w) solid var(--ink); border-radius: var(--corner);
+    background: var(--paper); gap: 4px;
+  }
+  .big-wave i { max-width: 12px; }
+  .big-wave .gap {
+    position: relative; gap: 4px; padding: 0 6px; margin: 0 2px;
+    background: repeating-linear-gradient(-45deg, rgba(180, 80, 31, .16) 0 6px, transparent 6px 12px);
+    border: 2px dashed var(--cut); border-radius: 5px;
+    overflow: hidden; max-width: 140px;
+    transition: max-width .55s cubic-bezier(.6, 0, .2, 1), padding .55s, margin .55s, border-width .2s .35s, opacity .3s;
+  }
+  .big-wave .gap::before {
+    content: "cut"; position: absolute; top: -1px; left: 50%; transform: translateX(-50%);
+    font-family: var(--mono); font-size: 10px; font-weight: 500; letter-spacing: .12em; text-transform: uppercase;
+    background: var(--cut); color: var(--cream); padding: 0 5px; border-radius: 0 0 3px 3px;
+  }
+  .big-wave .gap i { width: 5px; }
+  .big-wave.after .gap { max-width: 0; padding: 0; margin: 0 -2px; border-width: 0; opacity: 0; }
+  @media (prefers-reduced-motion: reduce) { .big-wave .gap { transition: none; } }
 
+  .steps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; margin-top: 32px; }
+  .step { padding: 24px; }
+  .step .n {
+    display: inline-grid; place-items: center; width: 40px; height: 40px;
+    font-family: var(--display); font-size: 18px; color: var(--cream); background: var(--red);
+    border: 2px solid var(--ink); border-radius: var(--corner-sm); box-shadow: 2px 2px 0 var(--ink);
+  }
+  .step h3 { margin: 16px 0 6px; font-family: var(--display); font-weight: 400; font-size: 20px; line-height: 1.1; text-transform: uppercase; }
+  .step p { margin: 0; color: var(--soft); }
+
+  /* Features */
+  .features { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px; }
+  .feature { padding: 30px 30px 32px; display: grid; grid-template-columns: auto 1fr; gap: 20px; align-items: start; }
+  .feature .icon {
+    width: 56px; height: 56px; display: grid; place-items: center;
+    background: var(--mustard); border: var(--ink-w) solid var(--ink); border-radius: var(--corner-sm);
+    box-shadow: 3px 3px 0 var(--ink);
+  }
+  .feature .icon svg { width: 28px; height: 28px; }
+  .feature h3 { margin: 4px 0 8px; font-family: var(--display); font-weight: 400; font-size: 24px; line-height: 1.05; text-transform: uppercase; }
+  .feature p { margin: 0; color: var(--soft); }
+  .feature .print-tag { position: absolute; top: -13px; right: 20px; }
+  .feature.teal { background: var(--teal); color: var(--cream); }
+  .feature.teal p { color: #E3EEEC; }
+  .feature.teal .icon { background: var(--cream); }
+
+  /* Pro */
+  .pro { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 48px; align-items: center; }
+  .pro-poster {
+    position: relative; min-height: 360px; padding: 32px;
+    border: var(--ink-heavy) solid var(--ink); border-radius: var(--corner);
+    box-shadow: var(--hero-shadow) var(--hero-shadow) 0 var(--ink);
+    display: flex; flex-direction: column; justify-content: flex-end;
+  }
+  .pro-poster .display { font-size: clamp(62px, 8vw, 104px); -webkit-text-stroke: 1.4px var(--ink); paint-order: stroke fill; text-shadow: 5px 5px 0 var(--ink); }
+  .pro-poster .display span { display: block; }
+  .pro-poster .display .c { color: var(--cream); }
+  .pro-poster .display .r { color: var(--red); }
+  .pro-poster .print-tag { position: absolute; top: -14px; right: 22px; }
+  .pro-poster .snip-pro { position: absolute; right: -10px; bottom: -34px; width: 200px; }
+  .checks { list-style: none; padding: 0; margin: 24px 0 28px; display: grid; gap: 12px; }
+  .checks li { display: flex; gap: 12px; align-items: center; font-weight: 600; }
+  .checks li::before {
+    content: ""; flex: none; width: 22px; height: 22px; background: var(--mustard);
+    border: 2px solid var(--ink); box-shadow: 2px 2px 0 var(--ink);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M5 10.5l3.2 3L15 6.5' fill='none' stroke='%232B1D14' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-size: 16px; background-position: center; background-repeat: no-repeat;
+  }
+  .tickets { display: grid; gap: 14px; margin-bottom: 22px; }
+  .ticket-row {
+    position: relative; display: flex; align-items: stretch; min-height: 72px; text-decoration: none; color: var(--ink);
+    background: var(--surface2); border: var(--ink-w) solid var(--ink); border-radius: var(--corner); overflow: visible;
+  }
+  .ticket-row.best { background: var(--surface); border-width: var(--ink-heavy); box-shadow: 5px 5px 0 var(--teal); }
+  .ticket-row .stub { width: 56px; flex: none; border-right: 2.5px dashed var(--ink); display: grid; place-items: center; font-family: var(--display); font-size: 18px; }
+  .ticket-row.best .stub { background: var(--mustard); border-radius: 5px 0 0 5px; }
+  .ticket-row .what { padding: 12px 14px; display: flex; flex-direction: column; justify-content: center; }
+  .ticket-row .what b { font-family: var(--display); font-weight: 400; font-size: 19px; text-transform: uppercase; line-height: 1.1; }
+  .ticket-row .what small { color: var(--soft); font-size: 13.5px; }
+  .ticket-row .price { margin-left: auto; padding: 0 16px; display: flex; flex-direction: column; justify-content: center; text-align: right; line-height: 1.2; }
+  .ticket-row .price b { font-size: 19px; }
+  .ticket-row .price small { font-size: 12.5px; color: var(--muted); }
+  .ticket-row .print-tag { position: absolute; top: -12px; right: 14px; }
+  .fine { font-size: 13.5px; color: var(--muted); margin: 14px 0 0; }
+
+  /* Closing CTA */
+  .cta {
+    position: relative; overflow: hidden; text-align: center; padding: 64px 24px 72px;
+    border: var(--ink-heavy) solid var(--ink); border-radius: var(--corner);
+    box-shadow: var(--hero-shadow) var(--hero-shadow) 0 var(--ink);
+  }
+  .cta .display { font-size: clamp(36px, 6vw, 68px); color: var(--ink); }
+  .cta .display span { color: var(--red); text-shadow: 3px 3px 0 var(--ink); }
+  .cta p { max-width: 520px; margin: 16px auto 28px; font-size: 18px; font-weight: 600; }
+  .cta-actions { display: flex; flex-wrap: wrap; gap: 16px; justify-content: center; }
+
+  @media (max-width: 960px) {
+    .hero-poster { grid-template-columns: minmax(0, 1fr); padding: 40px 32px 0; }
+    .hero-copy { padding-bottom: 8px; }
+    .hero-stage { padding-top: 12px; }
+    .pro { grid-template-columns: minmax(0, 1fr); gap: 56px; }
+    .steps { grid-template-columns: minmax(0, 1fr); gap: 18px; }
+    .features { grid-template-columns: minmax(0, 1fr); gap: 24px; }
+  }
   @media (max-width: 600px) {
-    body { font-size: 16px; }
-    .poster { padding: 20px 18px 0; min-height: 0; }
-    .tagline { max-width: none; }
-    .badge { margin-bottom: 170px; }
-    .snip { width: 250px; }
-    .features { grid-template-columns: minmax(0, 1fr); }
-    .strip .hide-sm { display: none; }
+    .hero { padding-top: 20px; }
+    .hero-poster { padding: 28px 20px 0; }
+    .hero-lead { font-size: 17px; }
+    .hero-actions .btn { width: 100%; }
+    .phone { width: 260px; }
+    .snip-hero { display: none; }
+    .caption { font-size: 18px; }
+    section.block { padding-top: 80px; }
+    .demo { padding: 18px; }
+    .big-wave { height: 110px; padding: 14px 8px; gap: 2px; }
+    .big-wave .gap { gap: 2px; padding: 0 3px; }
+    .big-wave .gap i { width: 3px; }
+    .feature { padding: 24px 20px; grid-template-columns: minmax(0, 1fr); gap: 14px; }
+    .pro-poster { min-height: 300px; padding: 24px; }
+    .pro-poster .snip-pro { width: 150px; }
+    .cta { padding: 48px 18px 56px; }
+    .cta-actions .btn { width: 100%; }
   }
 </style>
 </head>
 <body>
-<main class="wrap">
-  <header class="poster">
-    <span class="ink-tag">For iPhone · Talking videos</span>
-    <h1>Cutoro</h1>
-    <p class="tagline">Drop in a clip. Cutoro <b>cuts the silence</b>, adds subtitles, and gets you posting faster.</p>
-    <span class="badge"><span>Coming soon<small>to the App Store</small></span></span>
-    <svg class="snip" viewBox="-14 -4 330 168" role="img" aria-label="Snip, Cutoro's dachshund mascot">
-      <defs>
-        <filter id="sticker" x="-15%" y="-25%" width="130%" height="150%">
-          <feMorphology in="SourceAlpha" operator="dilate" radius="7" result="grown"/>
-          <feFlood flood-color="#FFF8EC"/>
-          <feComposite in2="grown" operator="in" result="edge"/>
-          <feMerge><feMergeNode in="edge"/><feMergeNode in="SourceGraphic"/></feMerge>
-        </filter>
-      </defs>
-      <g filter="url(#sticker)" stroke="#B5302A" stroke-width="5" stroke-linejoin="round" stroke-linecap="round">
-        <path d="M100 100 L100 136 Q100 144 108 144 L120 144 Q126 144 124 136 L122 100 Z" fill="#FFFFFF"/>
-        <path d="M126 100 L126 136 Q126 144 134 144 L146 144 Q152 144 150 136 L148 100 Z" fill="#FFFFFF"/>
-        <path d="M206 100 L206 136 Q206 144 214 144 L226 144 Q232 144 230 136 L228 100 Z" fill="#FFFFFF"/>
-        <path d="M232 100 L232 136 Q232 144 240 144 L252 144 Q258 144 256 136 L254 100 Z" fill="#FFFFFF"/>
-        <path d="M256 66 Q280 56 288 32 Q296 40 292 54 Q284 72 262 80 Z" fill="#FFFFFF"/>
-        <path d="M84 70 Q84 50 112 50 L232 50 Q262 50 262 80 Q262 110 234 112 L110 112 Q84 110 84 90 Z" fill="#FFFFFF"/>
-        <path d="M188 51 Q208 46 224 52 Q216 64 196 62 Q188 58 188 51 Z" fill="#B5302A"/>
-        <path d="M100 60 Q104 22 72 18 Q48 16 42 32 Q24 36 14 48 Q8 62 24 68 Q42 72 60 76 Q96 82 100 60 Z" fill="#FFFFFF"/>
-        <ellipse cx="14" cy="48" rx="7" ry="6" fill="#B5302A"/>
-        <path d="M78 28 Q102 24 104 52 Q106 76 88 80 Q78 62 78 28 Z" fill="#B5302A"/>
-        <path d="M92 74 Q100 90 112 100 L122 94 Q110 82 104 68 Z" fill="#F2B33D"/>
-        <circle cx="116" cy="104" r="6" fill="#FFFFFF"/>
-        <ellipse cx="62" cy="40" rx="5.5" ry="7" fill="#B5302A" stroke="none"/>
-        <circle cx="64" cy="37.5" r="1.8" fill="#FFFFFF" stroke="none"/>
-        <path d="M26 66 Q36 72 46 66" fill="none"/>
-        <path d="M34 70 Q36 82 42 80 Q46 76 42 69" fill="#F27E7E" stroke-width="3.5"/>
-        <path d="M296 22 Q304 28 302 38 M300 50 Q308 52 310 60" fill="none" stroke-width="3.5"/>
-      </g>
-    </svg>
-  </header>
 
-  <div class="strip" aria-hidden="true">
-    <span>★ Cut the silence</span>
-    <span class="hide-sm">Snip does the boring part</span>
-    <span>Keep the energy ★</span>
+<header class="site-header">
+  <div class="container">
+    <a class="brand" href="./" aria-label="Cutoro home">
+      <img class="brand-mark" src="assets/mark.svg" alt="">
+      <span class="brand-word">CUTORO</span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a class="hide-sm" href="#how">How it works</a>
+      <a class="hide-sm" href="#features">Features</a>
+      <a class="hide-sm" href="#pro">Pricing</a>
+      <a class="btn btn-primary btn-sm" href="account.html">Get Pro</a>
+    </nav>
   </div>
+</header>
 
-  <section class="features" aria-label="What Cutoro does">
-    <article class="card">
-      <span class="num">01</span>
-      <h2>Auto cuts</h2>
-      <p>Pauses and dead air come out on their own, at the pace you like, with smooth audio across every cut.</p>
-    </article>
-    <article class="card teal">
-      <span class="num">02</span>
-      <h2>Subtitles</h2>
-      <p>Accurate captions written for you, timed to every cut, and easy to fix by hand.</p>
-    </article>
-    <article class="card mustard">
-      <span class="num">03</span>
-      <h2>Templates</h2>
-      <p>Build a format once, or copy the edit of a video you love, and reuse it every time.</p>
-    </article>
-    <article class="card">
-      <span class="num">04</span>
-      <h2>Post daily</h2>
-      <p>Send straight to TikTok, Reels and Shorts, and keep your posting streak alive with Snip.</p>
-    </article>
+<main>
+  <!-- Hero -->
+  <section class="hero container" aria-labelledby="hero-title">
+    <div class="hero-poster rays">
+      <div class="hero-copy">
+        <span class="print-tag tilt-l">Take one · For iPhone</span>
+        <h1 class="display" id="hero-title"><span class="line">Cut the silence.</span><span class="line accent">Keep the energy.</span></h1>
+        <p class="hero-lead">Drop in a talking video. Cutoro <b>cuts the dead air</b>, writes your subtitles and gets you posting faster.</p>
+        <div class="hero-actions">
+          <span class="btn btn-ink" role="note">
+            <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="3" fill="none" stroke="currentColor" stroke-width="2.2"/><path d="M10.5 18.5h3" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>
+            <span class="stack"><small>Coming soon</small>App Store</span>
+          </span>
+          <a class="btn btn-secondary" href="#how">See how it works</a>
+        </div>
+        <p class="hero-note">★ Your videos stay on your iPhone</p>
+      </div>
+
+      <div class="hero-stage" aria-hidden="true">
+        <div class="phone" data-drift="-0.08">
+          <div class="screen">
+            <div class="screen-bar">
+              <span class="ico">‹</span>
+              <span class="title">PREVIEW</span>
+              <span class="ico" style="background:var(--red);color:var(--cream)">↑</span>
+            </div>
+            <div class="video">
+              <span class="print-tag red tilt-l">After</span>
+              <div class="caption">NO MORE <mark>DEAD AIR</mark></div>
+            </div>
+            <div class="card teal-shadow wave mini-wave">
+              <i style="--h:50%"></i><i style="--h:94%"></i><i style="--h:37%"></i><i style="--h:78%"></i><i style="--h:63%"></i><i style="--h:65%"></i><i style="--h:94%"></i><i style="--h:41%"></i><i style="--h:85%"></i><i style="--h:35%"></i><i style="--h:94%"></i><i style="--h:48%"></i><i style="--h:80%"></i><i style="--h:79%"></i><i style="--h:78%"></i><i style="--h:70%"></i><i style="--h:33%"></i><i style="--h:84%"></i><i style="--h:46%"></i><i style="--h:81%"></i><i style="--h:83%"></i><i style="--h:62%"></i><i style="--h:77%"></i>
+            </div>
+            <div class="lengths"><span>LENGTH <s>0:48</s></span><b>0:31</b></div>
+          </div>
+        </div>
+        <img class="snip-hero" src="assets/snip.svg" alt="" data-reveal="hop">
+      </div>
+    </div>
   </section>
 
-  <nav class="links" aria-label="More">
-    <a href="account.html">Get Pro · Account</a>
-    <a href="privacypolicy.html">Privacy policy</a>
-    <a href="mailto:matthewseto2004@gmail.com">Support &amp; contact</a>
-  </nav>
+  <div class="ticker" aria-hidden="true" style="margin-top:56px">
+    <div class="ticker-track">
+      <span>Cut the silence</span><span>Auto subtitles</span><span>Copy any edit</span><span>Post to TikTok, Reels &amp; Shorts</span><span>Snip does the boring part</span>
+      <span>Cut the silence</span><span>Auto subtitles</span><span>Copy any edit</span><span>Post to TikTok, Reels &amp; Shorts</span><span>Snip does the boring part</span>
+    </div>
+  </div>
 
-  <footer>© 2026 Cutoro · Made by Jacob Seto</footer>
+  <!-- How it works -->
+  <section class="block container" id="how" aria-labelledby="how-title">
+    <div class="block-head">
+      <div>
+        <span class="eyebrow">How it works</span>
+        <h2 class="section-title" id="how-title">Same take. <em>No dead air.</em></h2>
+        <p class="section-lead">Cutoro listens for the pauses between what you say and takes them out, so every second of your video is you talking.</p>
+      </div>
+    </div>
+
+    <div class="card demo">
+      <div class="demo-top">
+        <div class="seg" role="group" aria-label="Show the waveform">
+          <button type="button" aria-pressed="true" data-view="before">Raw take</button>
+          <button type="button" aria-pressed="false" data-view="after">After Cutoro</button>
+        </div>
+        <span class="demo-len" aria-live="polite">Length <b id="demo-len">0:48</b></span>
+      </div>
+      <div class="wave big-wave" id="big-wave" role="img" aria-label="A waveform of a talking video. The quiet gaps between sentences are marked to be cut.">
+        <i style="--h:50%"></i><i style="--h:94%"></i><i style="--h:37%"></i><i style="--h:78%"></i><i style="--h:63%"></i><i style="--h:65%"></i><i style="--h:94%"></i><i style="--h:41%"></i><i style="--h:85%"></i><span class="gap"><i style="--h:9%"></i><i style="--h:9%"></i><i style="--h:6%"></i><i style="--h:7%"></i></span><i style="--h:35%"></i><i style="--h:94%"></i><i style="--h:48%"></i><i style="--h:80%"></i><i style="--h:79%"></i><i style="--h:78%"></i><i style="--h:70%"></i><span class="gap"><i style="--h:10%"></i><i style="--h:10%"></i><i style="--h:9%"></i><i style="--h:6%"></i><i style="--h:7%"></i></span><i style="--h:33%"></i><i style="--h:84%"></i><i style="--h:46%"></i><i style="--h:81%"></i><i style="--h:83%"></i><i style="--h:62%"></i><i style="--h:77%"></i><i style="--h:39%"></i><i style="--h:94%"></i><i style="--h:44%"></i><i style="--h:76%"></i><span class="gap"><i style="--h:10%"></i><i style="--h:11%"></i><i style="--h:6%"></i><i style="--h:10%"></i></span><i style="--h:33%"></i><i style="--h:94%"></i><i style="--h:38%"></i><i style="--h:90%"></i><i style="--h:75%"></i><i style="--h:76%"></i><span class="gap"><i style="--h:9%"></i><i style="--h:8%"></i><i style="--h:8%"></i><i style="--h:7%"></i><i style="--h:12%"></i></span><i style="--h:41%"></i><i style="--h:86%"></i><i style="--h:58%"></i><i style="--h:86%"></i><i style="--h:66%"></i><i style="--h:64%"></i><i style="--h:89%"></i><i style="--h:48%"></i>
+      </div>
+    </div>
+
+    <div class="steps">
+      <article class="card step">
+        <span class="n">1</span>
+        <h3>Drop in a clip</h3>
+        <p>Film right in the app or pick a take from your Photos.</p>
+      </article>
+      <article class="card step">
+        <span class="n">2</span>
+        <h3>Snip cuts it</h3>
+        <p>Pauses come out at the pace you like, with smooth sound across every cut.</p>
+      </article>
+      <article class="card step">
+        <span class="n">3</span>
+        <h3>Post it</h3>
+        <p>Subtitles are already on. Send it straight to TikTok, Reels or Shorts.</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section class="block container" id="features" aria-labelledby="features-title">
+    <div class="block-head">
+      <div>
+        <span class="eyebrow">What's inside</span>
+        <h2 class="section-title" id="features-title">Built for people <em>who talk</em> to camera.</h2>
+      </div>
+    </div>
+    <div class="features">
+      <article class="card feature">
+        <span class="icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#2B1D14" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M8.1 8.1 20 20M8.1 15.9 20 4"/></svg>
+        </span>
+        <div>
+          <h3>Auto cuts</h3>
+          <p>Pauses and dead air come out on their own, at the pace you like, with smooth audio across every cut.</p>
+        </div>
+      </article>
+      <article class="card feature teal">
+        <span class="print-tag mustard">Editable</span>
+        <span class="icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#2B1D14" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="5" width="19" height="14" rx="2"/><path d="M6.5 14.5h4M13 14.5h4.5M6.5 11h7"/></svg>
+        </span>
+        <div>
+          <h3>Subtitles</h3>
+          <p>Accurate captions written for you, timed to every cut, and easy to fix by hand.</p>
+        </div>
+      </article>
+      <article class="card feature">
+        <span class="icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#2B1D14" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="8" width="13" height="13" rx="2"/><path d="M16 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h3"/></svg>
+        </span>
+        <div>
+          <h3>Templates</h3>
+          <p>Build a format once, or copy the edit of a video you love, and reuse it every time.</p>
+        </div>
+      </article>
+      <article class="card feature">
+        <span class="print-tag red">Keep the streak</span>
+        <span class="icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#2B1D14" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c1 3.5 5 5.5 5 10a5 5 0 0 1-10 0c0-2.2 1-3.6 2.2-4.8.3 1.6 1.1 2.6 2.3 2.8C11 8.5 11.2 5.5 12 3Z"/></svg>
+        </span>
+        <div>
+          <h3>Post daily</h3>
+          <p>Send straight to TikTok, Reels and Shorts, and keep your posting streak alive with Snip.</p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- Pro -->
+  <section class="block container" id="pro" aria-labelledby="pro-title">
+    <div class="pro">
+      <div class="pro-poster halftone" aria-hidden="true">
+        <span class="print-tag">Admit one · All access</span>
+        <p class="display"><span class="c">Cutoro</span><span class="r">Pro</span></p>
+        <img class="snip-pro" src="assets/snip.svg" alt="" data-drift="-0.1">
+      </div>
+      <div>
+        <span class="eyebrow">Pricing</span>
+        <h2 class="section-title" id="pro-title">Go <em>Pro.</em></h2>
+        <ul class="checks">
+          <li>Unlimited auto cuts and exports</li>
+          <li>Accurate subtitles you can edit</li>
+          <li>Copy the edit of any video</li>
+          <li>Post straight to TikTok, Reels and Shorts</li>
+        </ul>
+        <div class="tickets">
+          <a class="ticket-row best" href="account.html">
+            <span class="print-tag red">Best value</span>
+            <span class="stub" aria-hidden="true">★</span>
+            <span class="what"><b>Yearly</b><small>$31.67 a month, billed yearly</small></span>
+            <span class="price"><b>$379.99</b><small>/ year</small></span>
+          </a>
+          <a class="ticket-row" href="account.html">
+            <span class="stub" aria-hidden="true">●</span>
+            <span class="what"><b>Monthly</b><small>Cancel any time</small></span>
+            <span class="price"><b>$49.99</b><small>/ month</small></span>
+          </a>
+        </div>
+        <a class="btn btn-primary btn-block" href="account.html">Get Cutoro Pro</a>
+        <p class="fine">Subscribe here, then sign in to the app with the same Apple or Google account. Payments are handled by Stripe.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="block container" aria-labelledby="cta-title">
+    <div class="cta rays mustard">
+      <h2 class="display" id="cta-title">Talk. <span>Snip cuts.</span> You post.</h2>
+      <p>Cutoro is coming soon to the App Store for iPhone. Questions in the meantime? We'd love to hear from you.</p>
+      <div class="cta-actions">
+        <a class="btn btn-primary" href="account.html">Get Pro</a>
+        <a class="btn" href="mailto:matthewseto2004@gmail.com">Contact us</a>
+      </div>
+    </div>
+  </section>
 </main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div>
+      <span class="brand-word">CUTORO</span>
+      <p>Cuts the silence out of your talking videos, adds subtitles, and gets you posting faster.</p>
+    </div>
+    <div>
+      <h4>Product</h4>
+      <ul>
+        <li><a href="#how">How it works</a></li>
+        <li><a href="#features">Features</a></li>
+        <li><a href="account.html">Cutoro Pro</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Company</h4>
+      <ul>
+        <li><a href="privacypolicy.html">Privacy policy</a></li>
+        <li><a href="https://www.apple.com/legal/internet-services/itunes/dev/stdeula/">Terms</a></li>
+        <li><a href="mailto:matthewseto2004@gmail.com">Support &amp; contact</a></li>
+      </ul>
+    </div>
+    <div class="footer-base">
+      <span>© 2026 Cutoro · Made by Jacob Seto</span>
+      <span>Cut the silence · Keep the energy</span>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/motion.js"></script>
+<script>
+  // The before/after toggle collapses the marked silences, like the app's onboarding demo.
+  (() => {
+    const wave = document.getElementById("big-wave");
+    const len = document.getElementById("demo-len");
+    const buttons = document.querySelectorAll(".seg button");
+    const show = (view) => {
+      const after = view === "after";
+      wave.classList.toggle("after", after);
+      len.textContent = after ? "0:31" : "0:48";
+      wave.setAttribute("aria-label", after
+        ? "The same waveform with the quiet gaps removed, so the speech runs back to back."
+        : "A waveform of a talking video. The quiet gaps between sentences are marked to be cut.");
+      buttons.forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.view === view)));
+    };
+    let touched = false;
+    buttons.forEach((b) => b.addEventListener("click", () => { touched = true; show(b.dataset.view); }));
+    // The first time the demo scrolls into view, play the cut once on its own.
+    window.cutoroOnView?.(wave, () => setTimeout(() => { if (!touched) show("after"); }, 900), 0.7);
+  })();
+</script>
 </body>
 </html>
