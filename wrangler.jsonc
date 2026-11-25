@@ -8,5 +8,8 @@
     // /account serves account.html, and so on.
     "html_handling": "auto-trailing-slash",
     "not_found_handling": "404-page"
-  }
+  },
+  // Branch and pull-request builds run `wrangler preview`, which needs this block.
+  // It's empty because the site has no bindings; assets and settings above apply to previews too.
+  "previews": {}
 }

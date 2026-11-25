@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-14 -4 330 168">
+  <defs>
+    <filter id="sticker" x="-15%" y="-25%" width="130%" height="150%">
+      <feMorphology in="SourceAlpha" operator="dilate" radius="7" result="grown"/>
+      <feFlood flood-color="#FFF8EC"/>
+      <feComposite in2="grown" operator="in" result="edge"/>
+      <feMerge><feMergeNode in="edge"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <g filter="url(#sticker)" stroke="#B5302A" stroke-width="5" stroke-linejoin="round" stroke-linecap="round">
+    <path d="M100 100 L100 136 Q100 144 108 144 L120 144 Q126 144 124 136 L122 100 Z" fill="#FFFFFF"/>
+    <path d="M126 100 L126 136 Q126 144 134 144 L146 144 Q152 144 150 136 L148 100 Z" fill="#FFFFFF"/>
+    <path d="M206 100 L206 136 Q206 144 214 144 L226 144 Q232 144 230 136 L228 100 Z" fill="#FFFFFF"/>
+    <path d="M232 100 L232 136 Q232 144 240 144 L252 144 Q258 144 256 136 L254 100 Z" fill="#FFFFFF"/>
+    <path d="M256 66 Q280 56 288 32 Q296 40 292 54 Q284 72 262 80 Z" fill="#FFFFFF"/>
+    <path d="M84 70 Q84 50 112 50 L232 50 Q262 50 262 80 Q262 110 234 112 L110 112 Q84 110 84 90 Z" fill="#FFFFFF"/>
+    <path d="M188 51 Q208 46 224 52 Q216 64 196 62 Q188 58 188 51 Z" fill="#B5302A"/>
+    <path d="M100 60 Q104 22 72 18 Q48 16 42 32 Q24 36 14 48 Q8 62 24 68 Q42 72 60 76 Q96 82 100 60 Z" fill="#FFFFFF"/>
+    <ellipse cx="14" cy="48" rx="7" ry="6" fill="#B5302A"/>
+    <path d="M78 28 Q102 24 104 52 Q106 76 88 80 Q78 62 78 28 Z" fill="#B5302A"/>
+    <path d="M92 74 Q100 90 112 100 L122 94 Q110 82 104 68 Z" fill="#F2B33D"/>
+    <circle cx="116" cy="104" r="6" fill="#FFFFFF"/>
+    <ellipse cx="62" cy="40" rx="5.5" ry="7" fill="#B5302A" stroke="none"/>
+    <circle cx="64" cy="37.5" r="1.8" fill="#FFFFFF" stroke="none"/>
+    <path d="M26 66 Q36 72 46 66" fill="none"/>
+    <path d="M34 70 Q36 82 42 80 Q46 76 42 69" fill="#F27E7E" stroke-width="3.5"/>
+    <path d="M296 22 Q304 28 302 38 M300 50 Q308 52 310 60" fill="none" stroke-width="3.5"/>
+  </g>
+</svg>
